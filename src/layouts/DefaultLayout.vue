@@ -1,8 +1,16 @@
 <template>
     <div id="default-layout">
-        <TheHeader/>
-        <slot />
-    </div>
+        <div class="page">
+            <div class="page__wrapper" >
+                <TheHeader/>
+                <div class="page__content container">
+                <main>
+                    <slot/>
+                </main>
+               </div>
+            </div>  
+        </div>
+    </div>   
 </template>
 
 <script setup lang="ts">
