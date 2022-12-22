@@ -1,33 +1,41 @@
 import useProductsService from "@/services/ProductsService"
-import { ActionTree, MutationTree } from "vuex"
+import { ActionTree, GetterTree, MutationTree } from "vuex"
 
-const products = useProductsService()
+const productsService = useProductsService()
 
 interface State {
-    products: []
+    productsList: []
 }
 
+
 const state = () => ({
-    products: []
+    productsList: []
 })
 
+const getters:GetterTree<State, ''> = {
+    getCategories(state) {
+        return state.productsList.filter((item: {isGroup: boolean}) => item?.isGroup)
+    }
+}
+
 const actions:ActionTree<State, ''> = {
-    getProducts({commit}) {
-        products.getAllProducts()
+    fetchProducts({commit}) {
+        productsService.getAllProducts()
         .then(response => {
-            commit('productsRequest', response)
+            commit('productsRequest', response?.data)
         })
     }
 }
 
 const mutations:MutationTree<State> = {
     productsRequest(state, payload) {
-        state.products = payload
+        state.productsList = payload
     }
 }
 
 export default {
     state,
+    getters,
     actions,
     mutations
 }
