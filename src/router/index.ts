@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/category/:id',
-    name: 'login',
+    name: 'category',
     component: () => import('../views/CategoryView.vue'),
     meta: {
       layout: DefaultLayout
