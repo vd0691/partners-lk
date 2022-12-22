@@ -19,6 +19,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       layout: LoginLayout
     }
+  },
+  {
+    path: '/category/:id',
+    name: 'login',
+    component: () => import('../views/CategoryView.vue'),
+    meta: {
+      layout: DefaultLayout
+    }
   }
 ]
 
