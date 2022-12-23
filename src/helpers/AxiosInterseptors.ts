@@ -1,11 +1,7 @@
 import axios from "axios"
-import { Store } from "vuex";
+import  store from "@/store";
 
-interface State {
-    [key:string]: boolean
-}
-
-    export const loaderInterceptor = (store:Store<State>) => {
+    export const loaderInterceptor = () => {
         axios.interceptors.request.use(function (config) {
             store.dispatch('getLoadingStatus', true)            
             return config;
