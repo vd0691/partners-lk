@@ -1,5 +1,6 @@
 <template>
     <div class="products-list">
+        <LoaderIndicator v-if="isLoading"/>
         <div class="products-list__grid">
         <CategoryCard v-for="category in categories"
                       :key="category.id"
@@ -13,18 +14,18 @@
 
 <script setup lang="ts">
 import CategoryCard from './CategoryCard.vue';
+import LoaderIndicator from './LoaderIndicator.vue'
 import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
-
-
 import { useStore } from 'vuex';
 
 const store = useStore()
-
 const categories = computed(() => {
     return store.getters.getCategories
 })
-
+const isLoading = computed(() => {
+    return store.state.preloader.isLoading
+})
 
 onMounted(() => {
     store.dispatch('fetchProducts')
