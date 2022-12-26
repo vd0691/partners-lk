@@ -7,14 +7,14 @@
         </div>
       </div>
       <div class="catalog__content">
-        <ProductsCategories />                
+                       
       </div>
     </div>
   </div>  
 </template>
 
 <script setup lang="ts">
-import ProductsCategories from '@/components/ProductsCategories.vue';
+
 
 
 </script>
