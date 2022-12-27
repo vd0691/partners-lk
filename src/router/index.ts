@@ -21,9 +21,16 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/category/:id',
+    path: '/category/:category',
     name: 'category',
-    component: () => import('../views/CategoryView.vue'),
+    component: () => import('../views/CatalogView.vue'),
+    children: [
+      {
+          path: ':subcategory',
+          name: 'userData',
+          component: () => import('../views/CatalogView.vue'),
+      },
+  ],
     meta: {
       layout: DefaultLayout
     }
