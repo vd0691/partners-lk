@@ -13,13 +13,20 @@ export default function useProductsService() {
             return allProducts
 
         } catch (error) {
-            const errors = error as AxiosError
-            if (errors.response?.status === 401) {
-                localStorage.removeItem('user')
-                router.push('/login')
-            }
+            console.log(error)
         }
     }
 
-    return { getAllProducts }
+    const getCategories = async () => {
+        try {
+            const categories = await axios.get(`${API_URL}/items/groups`, {
+                headers: AuthorizationHeader()
+            })
+            return categories
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    return { getAllProducts, getCategories }
 }
