@@ -2,18 +2,21 @@
     <div class="catalog-menu">
         <ul class="catalog-menu__list">
             <li class="catalog-category" 
-                v-for="category in categories" 
+                v-for="category, index in categories" 
                 :key="category.id"
+                @click="selectItem(index)"
             >
                 <router-link 
                     class="link catalog-link catalog-category__link catalog-link--main"
-                    :to="`/category/${category.id}`">
+                    :to="`/category/${category.id}`"
+                >
                     {{ category.name }}
                 </router-link>
-                <ul class="catalog-category__list">
+                <ul class="catalog-category__list" v-show="currentMenuItem === index">
                     <li class="catalog-subcat" 
                         v-for="subcat in subCategories(category.id)" 
                         :key="subcat.id"
+                        @click="$emit('update:modelValue', (subcat.id))"
                     >
                         <router-link 
                             :to="`/category/${category.id}/${subcat.id}`"
@@ -32,6 +35,7 @@
 import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { useStore } from 'vuex';
+import { ref } from 'vue'
 
 const store = useStore()
 const categories = computed(() => {
@@ -40,6 +44,11 @@ const categories = computed(() => {
 
 const subCategories = (id:string) => {
     return store.getters.getCategories.filter((item:{[key:string]:string}) => item.parent_id === id)
+}
+
+const currentMenuItem = ref()
+const selectItem = (i:number) => {
+    currentMenuItem.value = i
 }
 
 onMounted(() => {
@@ -54,6 +63,7 @@ onMounted(() => {
     &__list {
         list-style: none;
         text-align: left;
+        padding: 0 15px 0 0;
     }
 
 }
@@ -73,5 +83,16 @@ onMounted(() => {
     &__link--gray {
         color: #919191;
     }
+}
+
+::-webkit-scrollbar-track {
+	background-color: #fff;
+} 
+::-webkit-scrollbar-thumb { 
+	border-radius: 5px; 
+	background-color: #ccc;
+} 
+::-webkit-scrollbar { 
+	width: 6px;
 }
 </style>
