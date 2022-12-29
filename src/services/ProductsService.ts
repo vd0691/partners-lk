@@ -1,6 +1,5 @@
 import { AuthorizationHeader } from "@/helpers/AuthorizationHeader"
-import router from "@/router"
-import axios, { AxiosError } from "axios"
+import axios from "axios"
 
 const API_URL = process.env.VUE_APP_API_URL
 
