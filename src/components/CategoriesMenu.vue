@@ -16,7 +16,6 @@
                     <li class="catalog-subcat" 
                         v-for="subcat in subCategories(category.id)" 
                         :key="subcat.id"
-                        @click="$emit('update:modelValue', (subcat.id))"
                     >
                         <router-link 
                             :to="`/category/${category.id}/${subcat.id}`"
@@ -33,17 +32,16 @@
 
 <script setup lang="ts">
 import { computed } from '@vue/reactivity';
-import { onMounted } from 'vue';
 import { useStore } from 'vuex';
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const store = useStore()
 const categories = computed(() => {
-    return store.getters.getCategories.filter((item:{[key:string]:number}) => item.level === 1)
+    return store.getters.GET_CATEGORIES
 })
 
 const subCategories = (id:string) => {
-    return store.getters.getCategories.filter((item:{[key:string]:string}) => item.parent_id === id)
+    return store.getters.GET_SUBCATEGORIES.filter((item: {parent_id: string}) => item.parent_id === id)
 }
 
 const currentMenuItem = ref()
@@ -52,13 +50,14 @@ const selectItem = (i:number) => {
 }
 
 onMounted(() => {
-    store.dispatch('fetchProducts')
+    store.dispatch('fetchCategories')
 })
-
 </script>
 
 <style scoped lang="scss">
 .catalog-menu {
+    height: 70vh;
+    overflow-y: auto;
 
     &__list {
         list-style: none;
