@@ -51,7 +51,7 @@ const selectItem = (i:number) => {
 }
 
 onMounted(() => {
-    store.dispatch('fetchCategories')
+    store.dispatch('FETCH_CATEGORIES')
 })
 </script>
 

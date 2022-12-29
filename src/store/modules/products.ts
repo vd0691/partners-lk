@@ -25,13 +25,13 @@ const getters:GetterTree<State, ''> = {
 }
 
 const actions:ActionTree<State, ''> = {
-    async fetchProducts({commit}) {
+    async FETCH_PRODUCTS({commit}) {
        const products = await productsService.getAllProducts()
-        commit('productsRequest', products?.data)
+        commit('PRODUCTS_REQUEST', products?.data)
     },
-    async fetchCategories({commit}) {
+    async FETCH_CATEGORIES({commit}) {
         const categories = await productsService.getCategories()
-        commit('categoriesRequest', await categories?.data)
+        commit('CATEGORIES_REQUEST', await categories?.data)
     },
     async FETCH_PRODUCTS_BY_CATEGORY({commit}, id:string) {
         const products = await productsService.getProductsByCategory(id)
@@ -40,7 +40,7 @@ const actions:ActionTree<State, ''> = {
 }
 
 const mutations:MutationTree<State> = {
-    productsRequest(state, payload) {
+    PRODUCTS_REQUEST(state, payload) {
         state.productsList = payload
     },
 
@@ -48,7 +48,7 @@ const mutations:MutationTree<State> = {
         state.productsList = payload
     },
 
-    categoriesRequest(state, payload) {
+    CATEGORIES_REQUEST(state, payload) {
         state.productsCategories = payload
     }    
 }
