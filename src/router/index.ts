@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import CatalogView from '../views/CatalogView.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import LoginLayout from '@/layouts/LoginLayout.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    name: 'catalog',
+    component: CatalogView,
     meta: {
       layout: DefaultLayout
     }
@@ -18,6 +18,21 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue'),
     meta: {
       layout: LoginLayout
+    }
+  },
+  {
+    path: '/category/:category',
+    name: 'category',
+    component: () => import('../views/CatalogView.vue'),
+    children: [
+      {
+          path: ':subcategory',
+          name: 'userData',
+          component: () => import('../views/CatalogView.vue'),
+      },
+  ],
+    meta: {
+      layout: DefaultLayout
     }
   }
 ]

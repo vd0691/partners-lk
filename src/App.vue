@@ -5,7 +5,13 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { loaderInterceptor } from './helpers/AxiosInterseptors';
 import DefaultLayout from './layouts/DefaultLayout.vue';
+
+onMounted(() => {
+  loaderInterceptor()
+})
 
 </script>
 

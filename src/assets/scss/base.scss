@@ -2,8 +2,16 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 15px;
+}
+
 body {
     margin: 0;
+}
+
+a {
+    text-decoration: none;
 }
 
 .container {
@@ -68,4 +76,21 @@ button {
     &:hover {
         cursor: pointer;
     }
+}
+
+.link {
+    color: #505050;
+}
+
+.link--gray {
+    color: #7b7b7b;
+}
+
+.catalog-link {
+    display: flex;
+    line-height: 1.4;
+}
+
+.catalog-link--main {
+    font-weight: bold;
 }
