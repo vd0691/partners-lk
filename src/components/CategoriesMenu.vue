@@ -16,6 +16,7 @@
                     <li class="catalog-subcat" 
                         v-for="subcat in subCategories(category.id)" 
                         :key="subcat.id"
+                        @click="store.dispatch('FETCH_PRODUCTS_BY_CATEGORY', subcat.id)"
                     >
                         <router-link 
                             :to="`/category/${category.id}/${subcat.id}`"
