@@ -32,6 +32,10 @@ const actions:ActionTree<State, ''> = {
     async fetchCategories({commit}) {
         const categories = await productsService.getCategories()
         commit('categoriesRequest', await categories?.data)
+    },
+    async FETCH_PRODUCTS_BY_CATEGORY({commit}, id:string) {
+        const products = await productsService.getProductsByCategory(id)
+        commit('PRODUCTS_BY_CATEGORY_REQUEST', await products?.data)
     }
 }
 
@@ -40,9 +44,13 @@ const mutations:MutationTree<State> = {
         state.productsList = payload
     },
 
+    PRODUCTS_BY_CATEGORY_REQUEST(state, payload) {
+        state.productsList = payload
+    },
+
     categoriesRequest(state, payload) {
         state.productsCategories = payload
-    }
+    }    
 }
 
 export default {
