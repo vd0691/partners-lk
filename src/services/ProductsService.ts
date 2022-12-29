@@ -17,6 +17,17 @@ export default function useProductsService() {
         }
     }
 
+    const getProductsByCategory = async (id:string) => {
+        try {
+            const products = await axios.get(`${API_URL}/items?group_id=${id}`, {
+                headers: AuthorizationHeader()
+            })
+            return products
+        } catch (error) {
+            console.log(error)
+        }       
+    }
+
     const getCategories = async () => {
         try {
             const categories = await axios.get(`${API_URL}/items/groups`, {
@@ -28,5 +39,5 @@ export default function useProductsService() {
         }
     }
 
-    return { getAllProducts, getCategories }
+    return { getAllProducts, getProductsByCategory, getCategories }
 }
