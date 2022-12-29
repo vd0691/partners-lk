@@ -2,15 +2,7 @@
   <div class="auth-page">
     <div class="auth-page__content">
       <div class="auth-page__formbox">
-        <div class="auth-page__navigation">
-          <button class="auth-page__navigation-item" :class="{'active-item': currentForm === SigninForm}" @click="currentForm=SigninForm">
-            Вход 
-          </button>
-          <button class="auth-page__navigation-item" :class="{'active-item': currentForm === SignupForm}" @click="currentForm=SignupForm">
-            Регистрация
-          </button>
-        </div>
-        <component :is="currentForm"/>
+        <SigninForm />
       </div>
     </div>
   </div>
@@ -19,10 +11,6 @@
 
 <script setup lang="ts">
 import SigninForm from '@/components/SigninForm.vue';
-import SignupForm from '@/components/SignupForm.vue';
-import { shallowRef } from 'vue';
-
-const currentForm = shallowRef(SigninForm)
 
 </script>
 
@@ -43,13 +31,13 @@ const currentForm = shallowRef(SigninForm)
     border-radius: 3px;
   }
 
-  &__navigation {
+  &__title {
     background: #f3f3f3;
     padding: 10px;
     border-radius: 30px;
   }
 
-  &__navigation-item {
+  &__navigation-text {
     position: relative;
     text-transform: uppercase;
     margin: 0 15px;
