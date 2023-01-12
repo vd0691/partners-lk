@@ -22,21 +22,9 @@ export default function useAuthService() {
         }                       
     }
 
-    const register = async (companyId: string, email:string) => {
-        try {
-            const response = await axios.post(`${API_URL}/auth/register`, {
-                id: companyId,
-                email: email
-            })
-            console.log(response)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     const logout = () => {
         localStorage.removeItem('user')
     }
 
-    return { login, register, logout }
+    return { login, logout }
 }
