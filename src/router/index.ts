@@ -1,19 +1,39 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import CatalogView from '../views/CatalogView.vue'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import LoginLayout from '@/layouts/LoginLayout.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'catalog',
+    component: CatalogView,
+    meta: {
+      layout: DefaultLayout
+    }
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue'),
+    meta: {
+      layout: LoginLayout
+    }
+  },
+  {
+    path: '/category/:category',
+    name: 'category',
+    component: () => import('../views/CatalogView.vue'),
+    children: [
+      {
+          path: ':subcategory',
+          name: 'userData',
+          component: () => import('../views/CatalogView.vue'),
+      },
+  ],
+    meta: {
+      layout: DefaultLayout
+    }
   }
 ]
 
@@ -22,4 +42,16 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to) => {
+  const isLoggedIn = localStorage.getItem('user') || ''
+  const isCurrentPath = to.name === 'login'
+
+  if(!isLoggedIn && !isCurrentPath) {
+    return {name: 'login'}
+  }
+  if(isLoggedIn && isCurrentPath) {
+    router.push('/')
+  }
+  
+})
 export default router
