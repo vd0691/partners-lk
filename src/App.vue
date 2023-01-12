@@ -6,11 +6,12 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { loaderInterceptor } from './helpers/AxiosInterseptors';
+import { useInterceptors } from './helpers/AxiosInterceptors';
 import DefaultLayout from './layouts/DefaultLayout.vue';
 
-
-
+onMounted(() => {
+  useInterceptors()
+})
 </script>
 
 <style lang="scss">

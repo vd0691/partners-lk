@@ -4,12 +4,8 @@ import { ActionTree, MutationTree } from "vuex";
 
 
 interface State {
-    user: User
+    user: string | null
     status: { loggedIn: boolean }
-}
-interface User {
-    username:string,
-    password:string
 }
 
 const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
@@ -31,6 +27,11 @@ const actions:ActionTree<State, ''> = {
                 router.push('/')
             }
         )       
+    },
+    
+    logout({commit}) {
+        authService.logout()
+        commit('logout')
     }
 }
 
@@ -38,7 +39,12 @@ const mutations:MutationTree<State> = {
     loginSucces(state) {
         state.status = { loggedIn: true }
         state.user = currentUser
+    },
+    logout(state) {
+        state.status.loggedIn = false
+        state.user = null
     }
+    
 }
 
 export default {
