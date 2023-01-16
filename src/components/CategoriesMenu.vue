@@ -12,7 +12,7 @@
                 >
                     {{ category.name }}
                 </router-link>
-                <ul class="catalog-category__list" v-show="currentMenuItem === index">
+                <ul class="catalog-category__list" v-show="currentMenuItem === index || category.id === route.params.category">
                     <li class="catalog-subcat" 
                         v-for="subcat in subCategories(category.id)" 
                         :key="subcat.id"
@@ -35,7 +35,9 @@
 import { computed } from '@vue/reactivity';
 import { useStore } from 'vuex';
 import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router';
 
+const route = useRoute()
 const store = useStore()
 const categories = computed(() => {
     return store.getters.GET_CATEGORIES
