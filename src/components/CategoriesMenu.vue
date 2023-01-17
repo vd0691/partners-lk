@@ -1,6 +1,15 @@
 <template>
     <div class="catalog-menu">
         <ul class="catalog-menu__list">
+            <li class="catalog-category">
+                <router-link 
+                    class="link catalog-link catalog-category__link catalog-link--main"
+                    :to="'/'"
+                    @click="store.dispatch('FETCH_PRODUCTS', {id: undefined})"
+                >
+                Все товары
+                </router-link>
+            </li>
             <li class="catalog-category" 
                 v-for="category, index in categories" 
                 :key="category.id"
@@ -16,7 +25,7 @@
                     <li class="catalog-subcat" 
                         v-for="subcat in subCategories(category.id)" 
                         :key="subcat.id"
-                        @click="store.dispatch('FETCH_PRODUCTS_BY_CATEGORY', subcat.id)"
+                        @click="store.dispatch('FETCH_PRODUCTS', {id:subcat.id})"
                     >
                         <router-link 
                             :to="`/category/${category.id}/${subcat.id}`"
