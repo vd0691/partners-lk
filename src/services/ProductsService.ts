@@ -4,23 +4,20 @@ import axios from "axios"
 const API_URL = process.env.VUE_APP_API_URL
 
 export default function useProductsService() {
-    const getAllProducts = async () => {
+    const getProducts = async (id:string, from:number, size:number) => {
         try {
-            const allProducts = await axios.get(`${API_URL}/items`)
+            const allProducts = await axios.get(`${API_URL}/items`, {
+                    params: {
+                    from: from || 0,
+                    size: size || 20,
+                    group_id: id,
+                }
+            })
             return allProducts
 
         } catch (error) {
             console.log(error)
         }
-    }
-
-    const getProductsByCategory = async (id:string) => {
-        try {
-            const products = await axios.get(`${API_URL}/items?group_id=${id}`)
-            return products
-        } catch (error) {
-            console.log(error)
-        }       
     }
 
     const getCategories = async () => {
@@ -32,5 +29,5 @@ export default function useProductsService() {
         }
     }
 
-    return { getAllProducts, getProductsByCategory, getCategories }
+    return { getProducts, getCategories }
 }
