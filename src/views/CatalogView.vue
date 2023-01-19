@@ -11,7 +11,8 @@
           <CategoriesMenu />
         </aside> 
         <div class="catalog__main-content">
-
+          <ProductsList />
+          
         </div>                      
       </div>
     </div>
@@ -20,9 +21,7 @@
 
 <script setup lang="ts">
 import CategoriesMenu from '@/components/CategoriesMenu.vue';
-
-
-
+import ProductsList from '@/components/ProductsList.vue';
 
 </script>
 
@@ -34,8 +33,13 @@ import CategoriesMenu from '@/components/CategoriesMenu.vue';
     display: flex;
   }
 
+  &__main-content {
+    width: 100%;
+  }
+
   &__menu {
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
   }
 }
 
