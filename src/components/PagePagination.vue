@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import router from '@/router';
-import { computed, watch, ref } from 'vue';
+import { computed, watch} from 'vue';
 import { useRoute } from 'vue-router';
 
 

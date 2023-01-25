@@ -48,7 +48,7 @@ const products = computed(() => {
     return store.state.products.productsList
 }) 
 
-const addToOrder = (product:any) => {
+const addToOrder = (product:string) => {
     console.log(product)
 }
 
