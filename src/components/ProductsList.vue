@@ -35,46 +35,6 @@
     </div>
 </template>
 
-<style scoped lang="scss">
-.products-box {
-    padding: 0 0 0 18px;
-}
-
-.products-table {
-    border: 1px solid #eee;
-    border-spacing: 0;
-    width: 100%;
-
-    &__header {
-        background: #D1EADF;
-    }
-    &__titles-text {
-        border: 1px solid #eee;
-        padding: 7px;
-        font-size: 11px;
-    }
-    &__product-item {
-        padding: 10px;
-        border: 1px solid #eee;
-    }
-}
-
-.order-controls {
-    display: flex;
-    justify-content: center;
-
-    &__button {
-        margin-left: 6px;
-    }
-
-    &__number {
-        width: 28%;
-        text-align: center;
-    }
-}
-
-</style>
-
 <script setup lang="ts">
 import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -96,4 +56,49 @@ onMounted(() => {
     store.dispatch('FETCH_PRODUCTS', {id:route.params.subcategory})
 })
 </script>
+
+
+<style scoped lang="scss">
+.products-box {
+    padding: 0 0 0 18px;
+}
+
+.products-table {
+    border: 1px solid #eee;
+    border-spacing: 0;
+    width: 100%;
+
+    &__header {
+        background: #D1EADF;
+    }
+    &__titles-text {
+        border: 1px solid #eee;
+        padding: 7px;
+        font-size: 11px;
+    }
+    &__products-list {
+        height: 50px;
+    }
+    &__product-item {
+        height: 40px;
+        padding: 10px;
+        border: 1px solid #eee;
+    }
+}
+
+.order-controls {
+    display: flex;
+    justify-content: center;
+
+    &__button {
+        margin-left: 6px;
+    }
+
+    &__number {
+        width: 28%;
+        text-align: center;
+    }
+}
+
+</style>
 
