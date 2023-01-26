@@ -36,11 +36,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 
-const route = useRoute()
 const store = useStore();
 const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.',
                       'Страна производитель', 'Новинка', 'Заказ']
@@ -52,9 +50,6 @@ const addToOrder = (product:string) => {
     console.log(product)
 }
 
-onMounted(() => {
-    store.dispatch('FETCH_PRODUCTS', {id:route.params.subcategory})
-})
 </script>
 
 

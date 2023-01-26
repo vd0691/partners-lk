@@ -17,12 +17,10 @@
 
 <script setup lang="ts">
 import router from '@/router';
-import { computed, watch} from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
-
 const route = useRoute()
-const emit = defineEmits(['change-page'])
 const props = defineProps({
     perPage: {
         type: Number,
@@ -30,29 +28,20 @@ const props = defineProps({
     },
     totalItems: {
         type: Number,
-        default: 20
+        required: true
     }
 })
 const currentPage = computed(() => {
     return Number(route.query.from) || 0
 })
-
-const isNextDisabled = computed(() => false)
+const isNextDisabled = computed(() => props.totalItems < currentPage.value + props.perPage)
 const isPreviousDisabled = computed(() => currentPage.value === 0)
 const previousPage = () => {
-    const current = currentPage.value - props.perPage
-    router.push({query: {from: current, size: props.perPage}})
-    window.scrollTo({top: 100})
+    router.push({query: {from: currentPage.value - props.perPage, size: props.perPage}}) 
 }
 const nextPage = () => {
-    const current = currentPage.value + props.perPage
-    router.push({query: {from: current, size: props.perPage}})
-    window.scrollTo({top: 100})
+    router.push({query: {from: currentPage.value + props.perPage, size: props.perPage}})
 }
-
-watch([currentPage, () => props.perPage], (data) => {
-    emit('change-page', data)
-}, {immediate:true})
 </script>
 
 <style scoped lang="scss">
