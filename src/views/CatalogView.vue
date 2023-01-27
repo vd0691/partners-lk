@@ -11,8 +11,9 @@
           <CategoriesMenu />
         </aside> 
         <div class="catalog__main-content">
+          <FilterBox />
           <ProductsList />
-          <PagePagination :total-items="totalItems" :per-page="20" />
+          <PagePagination :total-items="totalItems" :per-page="itemsNumber" />
         </div>                      
       </div>
     </div>
@@ -21,6 +22,7 @@
 
 <script setup lang="ts">
 import CategoriesMenu from '@/components/CategoriesMenu.vue';
+import FilterBox from '@/components/FilterBox.vue';
 import PagePagination from '@/components/PagePagination.vue';
 import ProductsList from '@/components/ProductsList.vue';
 import { computed, watch} from 'vue';
@@ -29,12 +31,10 @@ import { useStore } from 'vuex';
 
 const route = useRoute()
 const store = useStore()
-const totalItems = computed(() => 100)
+const totalItems = computed(() => 200)
 const currentPage =  computed(() => route.query.from)
-const itemsNumber = computed(() => route.query.size)
+const itemsNumber = computed(() => Number(route.query.size) || 20)
 const currentCat = computed(() => route.params.subcategory)
-
-
 
 watch([currentCat, currentPage, itemsNumber], () => {
    store.dispatch('FETCH_PRODUCTS', {
@@ -55,6 +55,7 @@ watch([currentCat, currentPage, itemsNumber], () => {
 
   &__main-content {
     width: 100%;
+    padding: 0 0 0 18px;
   }
 
   &__menu {

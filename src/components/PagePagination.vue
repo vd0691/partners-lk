@@ -34,10 +34,10 @@ const props = defineProps({
 const currentPage = computed(() => {
     return Number(route.query.from) || 0
 })
-const isNextDisabled = computed(() => props.totalItems < currentPage.value + props.perPage)
-const isPreviousDisabled = computed(() => currentPage.value === 0)
+const isNextDisabled = computed(() => props.totalItems <= currentPage.value + props.perPage)
+const isPreviousDisabled = computed(() => currentPage.value <= 0)
 const previousPage = () => {
-    router.push({query: {from: currentPage.value - props.perPage, size: props.perPage}}) 
+    router.push({query: {from: (currentPage.value - props.perPage) < 0 ? 0 : currentPage.value - props.perPage, size: props.perPage}}) 
 }
 const nextPage = () => {
     router.push({query: {from: currentPage.value + props.perPage, size: props.perPage}})
