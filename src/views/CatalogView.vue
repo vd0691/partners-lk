@@ -11,8 +11,9 @@
           <CategoriesMenu />
         </aside> 
         <div class="catalog__main-content">
+          <FilterBox />
           <ProductsList />
-          <PagePagination @change-page="getPage" :total-items="totalItems" :per-page="20" />
+          <PagePagination :total-items="totalItems" :per-page="itemsNumber" />
         </div>                      
       </div>
     </div>
@@ -21,18 +22,27 @@
 
 <script setup lang="ts">
 import CategoriesMenu from '@/components/CategoriesMenu.vue';
+import FilterBox from '@/components/FilterBox.vue';
 import PagePagination from '@/components/PagePagination.vue';
 import ProductsList from '@/components/ProductsList.vue';
-import { computed } from 'vue';
+import { computed, watch} from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 
 const route = useRoute()
 const store = useStore()
-const totalItems = computed(() => 100)
-const getPage = (params:Array<[]>) => {
-  store.dispatch('FETCH_PRODUCTS', {id:route.params.subcategory, from: params[0], size: params[1]})
-}
+const totalItems = computed(() => 200)
+const currentPage =  computed(() => route.query.from)
+const itemsNumber = computed(() => Number(route.query.size) || 20)
+const currentCat = computed(() => route.params.subcategory)
+
+watch([currentCat, currentPage, itemsNumber], () => {
+   store.dispatch('FETCH_PRODUCTS', {
+    id: currentCat.value, 
+    from: currentPage.value, 
+    size: itemsNumber.value
+  })
+}, {immediate: true})
 </script>
 
 <style scoped lang="scss">
@@ -45,6 +55,7 @@ const getPage = (params:Array<[]>) => {
 
   &__main-content {
     width: 100%;
+    padding: 0 0 0 18px;
   }
 
   &__menu {
