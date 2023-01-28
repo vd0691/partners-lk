@@ -5,13 +5,15 @@ const productsService = useProductsService()
 
 interface State {
     productsList: [],
-    productsCategories: []
+    productsCategories: [],
+    totalItems: number
 }
 
 
 const state = () => ({
     productsList: [],
-    productsCategories: []
+    productsCategories: [],
+    totalItems: 0
 })
 
 const getters:GetterTree<State, ''> = {
@@ -27,7 +29,8 @@ const getters:GetterTree<State, ''> = {
 const actions:ActionTree<State, ''> = {
     async FETCH_PRODUCTS({commit}, {id, from, size}) {
        const products = await productsService.getProducts(id, from, size)
-        commit('PRODUCTS_REQUEST', products?.data)
+        commit('PRODUCTS_REQUEST', products?.data.content)
+        commit('TOTALITEMS_REQUEST', products?.data.totalElements)
     },
     async FETCH_CATEGORIES({commit}) {
         const categories = await productsService.getCategories()
@@ -38,6 +41,9 @@ const actions:ActionTree<State, ''> = {
 const mutations:MutationTree<State> = {
     PRODUCTS_REQUEST(state, payload) {
         state.productsList = payload
+    },
+    TOTALITEMS_REQUEST(state, payload) {
+        state.totalItems = payload
     },
     CATEGORIES_REQUEST(state, payload) {
         state.productsCategories = payload
