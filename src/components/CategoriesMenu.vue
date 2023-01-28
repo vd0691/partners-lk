@@ -53,7 +53,7 @@ const categories = computed(() => {
 })
 
 const subCategories = (id:string) => {
-    return store.getters.GET_SUBCATEGORIES.filter((item: {parent_id: string}) => item.parent_id === id)
+    return store.getters.GET_SUBCATEGORIES.filter((item: {groupId: string}) => item.groupId === id)
 }
 
 const currentMenuItem = ref()

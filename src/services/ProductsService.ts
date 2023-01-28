@@ -10,7 +10,7 @@ export default function useProductsService() {
                     params: {
                     from: from || 0,
                     size: size || 20,
-                    group_id: id,
+                    groupId: id,
                 }
             })
             return allProducts

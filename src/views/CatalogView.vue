@@ -31,7 +31,7 @@ import { useStore } from 'vuex';
 
 const route = useRoute()
 const store = useStore()
-const totalItems = computed(() => 200)
+const totalItems = computed(() => store.state.products.totalItems)
 const currentPage =  computed(() => route.query.from)
 const itemsNumber = computed(() => Number(route.query.size) || 20)
 const currentCat = computed(() => route.params.subcategory)
