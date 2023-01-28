@@ -6,7 +6,7 @@ const API_URL = process.env.VUE_APP_API_URL
 export default function useProductsService() {
     const getProducts = async (id:string, from:number, size:number) => {
         try {
-            const allProducts = await axios.get(`${API_URL}/items?partnerId=01e27f81-7aed-11e9-812e-00155d033601`, {
+            const allProducts = await axios.get(`${API_URL}/items?partnerId=d463bff1-fd5e-4e76-aeb0-1266d49e8f01`, {
                     params: {
                     from: from || 0,
                     size: size || 20,

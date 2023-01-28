@@ -21,6 +21,22 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/orders',
+    name: 'orders',
+    component: () => import('../views/OrdersView.vue'),
+    meta: {
+      layout: DefaultLayout
+    }
+  },
+  {
+    path: '/documents',
+    name: 'documents',
+    component: () => import('../views/DocumentsView.vue'),
+    meta: {
+      layout: DefaultLayout
+    }
+  },
+  {
     path: '/category/:category',
     name: 'category',
     component: () => import('../views/CatalogView.vue'),

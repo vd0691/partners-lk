@@ -14,13 +14,19 @@
                     </thead>
                     <tbody class="products-table__body">
                         <tr class="products-table__products-list" v-for="product in products" :key="product.id">
-                            <td class="products-table__product-item">{{ product.vendorCode }}</td>
-                            <td class="products-table__product-item">{{ product.name }}</td>
+                            <td class="products-table__product-item"><span class="product-id">{{ product.vendorCode }}</span></td>
+                            <td class="products-table__product-item">
+                                <div class="product-name">
+                                    <span class="product-novelty">
+                                        {{ product.isNovelty ? 'Новинка!' : '' }}
+                                    </span>
+                                    {{ product.name }}
+                                </div>
+                            </td>
                             <td class="products-table__product-item">{{ product.retailPriceBeforeDiscount }}</td>
                             <td class="products-table__product-item">{{ product.salePrice }}</td>
                             <td class="products-table__product-item">{{ product.retailPrice }}</td>
-                            <td class="products-table__product-item">{{ product.countryOfOrigin }}</td>
-                            <td class="products-table__product-item">{{ product.isNovelty ? '✅': '' }}</td>
+                            <td class="products-table__product-item"><span class="product-country">{{ product.countryOfOrigin }}</span></td>
                             <td class="products-table__product-item">
                                 <div class="order-controls">
                                     <input class="order-controls__number" placeholder="10 шт." />
@@ -35,10 +41,25 @@
     </div>
 </template>
 
-<style scoped lang="scss">
-.products-box {
-    padding: 0 0 0 18px;
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.',
+                      'Страна производитель', 'Заказ']
+const products = computed(() => {
+    return store.state.products.productsList
+}) 
+
+const addToOrder = (product:string) => {
+    console.log(product)
 }
+
+</script>
+
+
+<style scoped lang="scss">
 
 .products-table {
     border: 1px solid #eee;
@@ -53,7 +74,11 @@
         padding: 7px;
         font-size: 11px;
     }
+    &__products-list {
+        height: 50px;
+    }
     &__product-item {
+        height: 40px;
         padding: 10px;
         border: 1px solid #eee;
     }
@@ -73,27 +98,26 @@
     }
 }
 
-</style>
-
-<script setup lang="ts">
-import { computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
-
-const route = useRoute()
-const store = useStore();
-const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.',
-                      'Страна производитель', 'Новинка', 'Заказ']
-const products = computed(() => {
-    return store.state.products.productsList
-}) 
-
-const addToOrder = (product:any) => {
-    console.log(product)
+.product-id {
+    font-size: 12px;
 }
 
-onMounted(() => {
-    store.dispatch('FETCH_PRODUCTS', {id:route.params.subcategory})
-})
-</script>
+.product-country {
+    font-size: 13px;
+}
+
+.product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 300px;
+    text-align: left;
+}
+
+.product-novelty {
+    font-size: 12px;
+    color: #ff0000;
+    vertical-align: text-top;
+}
+
+</style>
 
