@@ -48,6 +48,7 @@ watch([currentCat, currentPage, itemsNumber], () => {
 <style scoped lang="scss">
 
 .catalog {
+  padding: 0 20px;
 
   &__body {
     display: flex;

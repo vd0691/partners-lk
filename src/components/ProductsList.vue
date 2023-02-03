@@ -107,9 +107,6 @@ const addToOrder = (product:string) => {
 }
 
 .product-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 300px;
     text-align: left;
 }
 

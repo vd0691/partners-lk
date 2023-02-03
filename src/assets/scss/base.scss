@@ -15,7 +15,7 @@ a {
 }
 
 .container {
-    max-width: 1360px;
+    max-width: 1480px;
     margin: 0 auto;
     width: 100%;
 }
@@ -79,19 +79,7 @@ button {
     }
 }
 
-.link {
-    color: #505050;
-}
-
-.link--gray {
-    color: #7b7b7b;
-}
-
-.catalog-link {
-    display: flex;
-    line-height: 1.4;
-}
-
-.catalog-link--main {
+.menu-link--main {
     font-weight: bold;
 }
+

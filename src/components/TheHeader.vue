@@ -20,7 +20,7 @@ import TheNavigation from './TheNavigation.vue';
     &__wrapper {
         @include flex-center;
         width: 100%;
-        height: 100px;
+        height: 50px;
         background: #eee;
     }
 }
