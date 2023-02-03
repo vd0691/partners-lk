@@ -13,7 +13,9 @@
         <div class="catalog__main-content">
           <FilterBox />
           <ProductsList />
-          <PagePagination :total-items="totalItems" :per-page="itemsNumber" />
+          <div class="pagination">
+            <PagePagination :total-items="totalItems" :per-page="itemsNumber" />
+          </div>
         </div>                      
       </div>
     </div>
@@ -68,15 +70,7 @@ watch([currentCat, currentPage, itemsNumber], () => {
 .pagination {
   display: flex;
   margin: 20px 0;
-  background: #eee;
-
-  &__item-next {
-    color: #ff0000;
-  }
-
-  &__item-previous {
-    color: #000000;
-  }
+  justify-content: center;
 }
 
 </style>

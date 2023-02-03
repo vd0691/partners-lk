@@ -16,7 +16,7 @@
             >
                 <router-link 
                     class="menu-link menu-category__link menu-link--main"          
-                    @click="selectItem(category.id), store.dispatch('FETCH_PRODUCTS')"
+                    @click="selectItem(category.id), store.dispatch('FETCH_PRODUCTS', {id: category.id})"
                     :to="`/category/${category.id}`"
                 >
                     {{ category.name }}
