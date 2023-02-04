@@ -16,6 +16,7 @@ import TheNavigation from './TheNavigation.vue';
 
 <style scoped lang="scss">
 .header {
+    margin-top: 30px;
     
     &__wrapper {
         @include flex-center;
