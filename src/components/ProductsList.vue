@@ -24,7 +24,7 @@
                                 </div>
                             </td>
                             <td class="products-table__product-item">{{ product.retailPriceBeforeDiscount }}</td>
-                            <td class="products-table__product-item">{{ product.salePrice }}</td>
+                            <td class="products-table__product-item">{{ product.discount }}</td>
                             <td class="products-table__product-item">{{ product.retailPrice }}</td>
                             <td class="products-table__product-item"><span class="product-country">{{ product.countryOfOrigin }}</span></td>
                             <td class="products-table__product-item">
