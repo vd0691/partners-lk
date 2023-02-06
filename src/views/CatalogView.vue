@@ -36,7 +36,7 @@ const store = useStore()
 const totalItems = computed(() => store.state.products.totalItems)
 const currentPage =  computed(() => route.query.from)
 const itemsNumber = computed(() => Number(route.query.size) || 20)
-const currentCat = computed(() => route.params.subcategory)
+const currentCat = computed(() => route.params.subcategory ? route.params.subcategory : route.params.category)
 
 watch([currentCat, currentPage, itemsNumber], () => {
    store.dispatch('FETCH_PRODUCTS', {

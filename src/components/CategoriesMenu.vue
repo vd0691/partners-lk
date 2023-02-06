@@ -5,7 +5,7 @@
                 <router-link 
                     class="menu-link menu-category__link menu-link--main"
                     :to="'/'"
-                    @click="store.dispatch('FETCH_PRODUCTS'), currentMenuItem = undefined"
+                    @click="store.dispatch('FETCH_PRODUCTS', {id: undefined}), currentMenuItem = ''"
                 >
                     Все товары
                 </router-link>
