@@ -5,7 +5,6 @@
                 <router-link 
                     class="menu-link menu-category__link menu-link--main"
                     :to="'/'"
-                    @click="store.dispatch('FETCH_PRODUCTS', {id: undefined}), currentMenuItem = ''"
                 >
                     Все товары
                 </router-link>
@@ -16,7 +15,7 @@
             >
                 <router-link 
                     class="menu-link menu-category__link menu-link--main"          
-                    @click="selectItem(category.id), store.dispatch('FETCH_PRODUCTS', {id: category.id})"
+                    @click="selectItem(category.id)"
                     :to="`/category/${category.id}`"
                 >
                     {{ category.name }}
@@ -25,7 +24,6 @@
                     <li class="menu-subcategory" 
                         v-for="subcat in subCategories(category.id)" 
                         :key="subcat.id"
-                        @click="store.dispatch('FETCH_PRODUCTS', {id: subcat.id})"
                     >
                         <router-link 
                             :to="`/category/${category.id}/${subcat.id}`"
