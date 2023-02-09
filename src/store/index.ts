@@ -3,7 +3,7 @@ import auth from './modules/auth'
 import error from './modules/error'
 import products from './modules/products'
 import preloader from './modules/preloader'
-import productsSort from './modules/productsSort'
+import dataSort from './modules/dataSort'
 
 export default createStore({
   modules: {
@@ -11,6 +11,6 @@ export default createStore({
     error,
     products,
     preloader,
-    productsSort 
+    dataSort 
   }
 })

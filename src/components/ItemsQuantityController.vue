@@ -22,11 +22,17 @@
 import router from '@/router';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 
+
+const store = useStore()
 const route = useRoute()
-const selectValue = computed(() => route.query.size)
+const selectValue = computed(() => store.state.dataSort.perPage)
 const changeItemsNumber = (value:string) => {
     router.push({query: {from: route.query.from, size: value}})
+    store.dispatch('GET_PER_PAGE', Number(value))
 }
+
+
 
 </script>
