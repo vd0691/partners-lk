@@ -35,7 +35,7 @@ const route = useRoute()
 const store = useStore()
 const totalItems = computed(() => store.state.products.totalItems)
 const currentPage =  computed(() => route.query.from)
-const itemsNumber = computed(() => Number(route.query.size) || 20)
+const itemsNumber = computed(() => store.state.dataSort.perPage)
 const currentCat = computed(() => route.params.subcategory ? route.params.subcategory : route.params.category)
 
 watch([currentCat, currentPage, itemsNumber], () => {
