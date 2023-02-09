@@ -27,8 +27,8 @@ const getters:GetterTree<State, ''> = {
 }
 
 const actions:ActionTree<State, ''> = {
-    async FETCH_PRODUCTS({commit}, {id, from, size}) {
-       const products = await productsService.getProducts(id, from, size)
+    async FETCH_PRODUCTS({commit}, {id, from, size, level}) {
+       const products = await productsService.getProducts(id, from, size, level)
         commit('PRODUCTS_REQUEST', products?.data.content)
         commit('TOTALITEMS_REQUEST', products?.data.totalElements)
     },
