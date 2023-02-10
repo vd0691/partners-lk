@@ -10,8 +10,8 @@
                     @change="changeItemsNumber(($event.target as HTMLSelectElement).value)"
                 >
                     <option selected value="20">20</option>
-                    <option :selected="selectValue === '60'" value="60">60</option>
-                    <option :selected="selectValue === '100'" value="100">100</option>
+                    <option :selected="selectValue === 60" value="60">60</option>
+                    <option :selected="selectValue === 100" value="100">100</option>
                 </select>
             </div>
         </div>
