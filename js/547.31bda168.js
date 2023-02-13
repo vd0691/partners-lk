@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkpartners_lk"]=self["webpackChunkpartners_lk"]||[]).push([[547],{8547:function(n,r,e){e.r(r),e.d(r,{default:function(){return l}});var t=e(9812);function u(n,r){return(0,t.wg)(),(0,t.iD)("h1",null,"Документы")}var a=e(8998);const s={},c=(0,a.Z)(s,[["render",u]]);var l=c}}]);
+//# sourceMappingURL=547.31bda168.js.map

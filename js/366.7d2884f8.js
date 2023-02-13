@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkpartners_lk"]=self["webpackChunkpartners_lk"]||[]).push([[366],{5366:function(n,r,e){e.r(r),e.d(r,{default:function(){return l}});var t=e(9812);function u(n,r){return(0,t.wg)(),(0,t.iD)("h1",null,"Заказы")}var a=e(8998);const s={},c=(0,a.Z)(s,[["render",u]]);var l=c}}]);
+//# sourceMappingURL=366.7d2884f8.js.map
