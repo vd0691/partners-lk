@@ -5,6 +5,7 @@
                 <router-link 
                     class="menu-link menu-category__link menu-link--main"
                     :to="'/'"
+                    @click="currentMenuItem = undefined"
                 >
                     Все товары
                 </router-link>
