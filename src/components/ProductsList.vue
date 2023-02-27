@@ -16,7 +16,7 @@
                         <tr class="products-table__products-list" v-for="product in products" :key="product.id">
                             <td class="products-table__product-item"><span class="product-id">{{ product.vendorCode }}</span></td>
                             <td class="products-table__product-item">
-                                <div class="product-name">
+                                <div class="product-name" @click="openCard(product)">
                                     <span class="product-novelty">
                                         {{ product.isNovelty ? 'Новинка!' : '' }}
                                     </span>
@@ -34,6 +34,9 @@
                                 </div>
                             </td>
                         </tr> 
+                        <ModalWindow class="product-modal" v-if="isOpen" @close-window="closeCard">
+                            <ProductCard :product="selectedProduct"/>                       
+                        </ModalWindow>
                     </tbody>   
                 </table>
             </div>
@@ -42,15 +45,24 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import ModalWindow from './ModalWindow.vue';
+import ProductCard from './ProductCard.vue';
 
 const store = useStore();
-const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.',
-                      'Страна производитель', 'Заказ']
-const products = computed(() => {
-    return store.state.products.productsList
-}) 
+const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна производитель', 'Заказ']
+const products = computed(() => store.state.products.productsList) 
+const selectedProduct = ref()
+
+const isOpen = ref(false)
+const openCard = (product:{[key:string]:any}) => {
+    isOpen.value = true
+    selectedProduct.value = product
+}
+const closeCard = () => {
+    isOpen.value = false
+}
 
 const addToOrder = (product:string) => {
     console.log(product)
