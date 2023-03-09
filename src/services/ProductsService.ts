@@ -4,10 +4,11 @@ import axios from "axios"
 const API_URL = process.env.VUE_APP_API_URL
 
 export default function useProductsService() {
-    const getProducts = async (id:string, from:number, size:number, level:number) => {
+    const getProducts = async (id:string, from:number, size:number, level:number, partnerId:string) => {
         try {
-            const allProducts = await axios.get(`${API_URL}/items?partnerId=d463bff1-fd5e-4e76-aeb0-1266d49e8f01`, {
+            const allProducts = await axios.get(`${API_URL}/items`, {
                 params: {
+                    partnerId: partnerId,
                     level: level,
                     from: from || 0,
                     size: size || 20,

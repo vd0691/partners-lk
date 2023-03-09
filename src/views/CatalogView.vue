@@ -38,14 +38,20 @@ const currentPage =  computed(() => route.query.from)
 const itemsNumber = computed(() => store.state.dataSort.perPage)
 const currentCategory = computed(() => route.params.category)
 const currentSubcategory = computed(() => route.params.subcategory)
+const partnerId = computed(() => store.state.partner.partner?.id)
 
-watch([currentCategory, currentSubcategory, currentPage, itemsNumber], () => {
-  store.dispatch('FETCH_PRODUCTS', {
-    level: currentCategory.value && !currentSubcategory.value ? 1 : undefined,
-    id: currentCategory.value && !currentSubcategory.value ? currentCategory.value : currentSubcategory.value ? currentSubcategory.value : undefined, 
-    from: currentPage.value, 
-    size: itemsNumber.value
-  })
+watch([currentCategory, currentSubcategory, currentPage, itemsNumber, partnerId], () => {
+  store.dispatch('GET_PARTNER', 'user1')
+  if (partnerId.value) {
+      store.dispatch('FETCH_PRODUCTS', {
+      partnerId: partnerId.value,
+      level: currentCategory.value && !currentSubcategory.value ? 1 : undefined,
+      id: currentCategory.value && !currentSubcategory.value ? currentCategory.value : currentSubcategory.value ? currentSubcategory.value : undefined, 
+      from: currentPage.value, 
+      size: itemsNumber.value
+    })
+  }
+  
 }, {immediate: true})
 </script>
 
