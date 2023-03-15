@@ -37,7 +37,7 @@
 
   &__container {
     @include flex-center;
-    height: 70vh;
+    height: 100%;
   }
 
   & svg {
