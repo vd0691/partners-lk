@@ -16,11 +16,14 @@
                         <tr class="products-table__products-list" v-for="product in products" :key="product.id">
                             <td class="products-table__product-item"><span class="product-id">{{ product.vendorCode }}</span></td>
                             <td class="products-table__product-item">
-                                <div class="product-name" @click="openCard(product)">
-                                    <span class="product-novelty">
-                                        {{ product.isNovelty ? 'Новинка!' : '' }}
-                                    </span>
-                                    {{ product.name }}
+                                <div class="products-table__item-wrapper">
+                                    <div class="product-name" @click="openCard(product)">
+                                        <span class="product-novelty">
+                                            {{ product.isNovelty ? 'Новинка!' : '' }}
+                                        </span>
+                                        {{ product.name }}
+                                    </div>
+                                    <ProductImage :product-id="product.id"/>
                                 </div>
                             </td>
                             <td class="products-table__product-item">{{ product.retailPriceBeforeDiscount }}</td>
@@ -49,7 +52,11 @@ import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import ModalWindow from './ModalWindow.vue';
 import ProductCard from './ProductCard.vue';
+import ProductImage from './ProductImage.vue';
 
+const test = () => {
+    console.log('1111')
+}
 const store = useStore();
 const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна производитель', 'Заказ']
 const products = computed(() => store.state.products.productsList) 
@@ -93,6 +100,10 @@ const addToOrder = (product:string) => {
         height: 40px;
         padding: 10px;
         border: 1px solid #eee;
+    }
+    &__item-wrapper {
+        display: flex;
+        justify-content: space-between;
     }
 }
 
