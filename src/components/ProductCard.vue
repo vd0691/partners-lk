@@ -38,20 +38,15 @@
 </template>
 
 <script setup lang="ts">
+import { Product } from '@/interfaces/Product';
+import { provide } from 'vue';
 import ProductCardImages from './ProductCardImages.vue'
 
-interface Product {
-    vendorCode: number
-    name: string,
-    countryOfOrigin: string,
-    isNovelty: boolean,
-    retailPriceBeforeDiscount: number,
-    retailPrice: number,
-    discount: number 
-}
 const props = defineProps<{
   product: Product
 }>()
+
+provide('product', props.product)
 </script>
 
 <style scoped lang="scss">
