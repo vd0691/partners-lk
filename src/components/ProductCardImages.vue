@@ -36,7 +36,7 @@ import '@/assets/scss/carousel.css'
 import { Product } from '@/interfaces/Product';
 import useImagesService from '@/services/ImagesService';
 import { ref, inject, onMounted } from 'vue';
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { Carousel, Slide, Navigation } from 'vue3-carousel'
 import LoaderIndicator from './LoaderIndicator.vue';
 
 const isDataLoading = ref(true)

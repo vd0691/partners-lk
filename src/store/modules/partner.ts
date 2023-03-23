@@ -1,4 +1,3 @@
-import router from "@/router";
 import usePartnerService from "@/services/PartnerService";
 import { ActionTree, MutationTree } from "vuex";
 

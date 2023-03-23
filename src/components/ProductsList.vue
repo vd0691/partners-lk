@@ -48,22 +48,20 @@
 </template>
 
 <script setup lang="ts">
+import { Product } from '@/interfaces/Product';
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import ModalWindow from './ModalWindow.vue';
 import ProductCard from './ProductCard.vue';
 import ProductImage from './ProductImage.vue';
 
-const test = () => {
-    console.log('1111')
-}
 const store = useStore();
 const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна производитель', 'Заказ']
 const products = computed(() => store.state.products.productsList) 
 const selectedProduct = ref()
 
 const isOpen = ref(false)
-const openCard = (product:{[key:string]:any}) => {
+const openCard = (product:Product) => {
     isOpen.value = true
     selectedProduct.value = product
 }
