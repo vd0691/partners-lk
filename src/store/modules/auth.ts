@@ -24,6 +24,7 @@ const actions:ActionTree<State, ''> = {
         .then(
             user => {
                 commit('loginSucces', user)
+                localStorage.setItem('user', JSON.stringify(user))
                 router.push('/')
             }
         )       
@@ -36,9 +37,9 @@ const actions:ActionTree<State, ''> = {
 }
 
 const mutations:MutationTree<State> = {
-    loginSucces(state) {
+    loginSucces(state, user) {
         state.status = { loggedIn: true }
-        state.user = currentUser
+        state.user = user
     },
     logout(state) {
         state.status.loggedIn = false

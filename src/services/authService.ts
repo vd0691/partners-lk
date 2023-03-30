@@ -13,7 +13,7 @@ export default function useAuthService() {
                 username: username,
                 password: password
             })
-            localStorage.setItem('user', JSON.stringify(response.data))
+            return response.data
         } catch (errors) {
             const error = errors as AxiosError
             if (error.response?.status === 401) {
