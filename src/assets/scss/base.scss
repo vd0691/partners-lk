@@ -87,3 +87,26 @@ button {
     font-weight: bold;
 }
 
+.products-table {
+    border: 1px solid #eee;
+    border-spacing: 0;
+    width: 100%;
+
+
+    &__header {
+        background: #D1EADF;
+    }
+
+    &__titles-text {
+        border: 1px solid #eee;
+        padding: 7px;
+        font-size: 11px;
+    }
+
+    &__product-item {
+        height: 40px;
+        padding: 10px;
+        border: 1px solid #eee;
+    }
+
+}

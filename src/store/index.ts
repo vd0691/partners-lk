@@ -4,6 +4,7 @@ import error from './modules/error'
 import products from './modules/products'
 import dataSort from './modules/dataSort'
 import partner from './modules/partner'
+import cart from './modules/cart'
 
 export default createStore({
   modules: {
@@ -11,6 +12,7 @@ export default createStore({
     error,
     products,
     dataSort,
-    partner 
+    partner,
+    cart 
   }
 })

@@ -13,7 +13,7 @@
                         </tr>
                     </thead>
                     <tbody class="products-table__body">
-                        <tr class="products-table__products-list" v-for="product in products" :key="product.id">
+                        <tr class="products-table__products-list" v-for="product, i in products" :key="product.id">
                             <td class="products-table__product-item"><span class="product-id">{{ product.vendorCode }}</span></td>
                             <td class="products-table__product-item">
                                 <div class="products-table__item-wrapper">
@@ -32,16 +32,22 @@
                             <td class="products-table__product-item"><span class="product-country">{{ product.countryOfOrigin }}</span></td>
                             <td class="products-table__product-item">
                                 <div class="order-controls">
-                                    <input class="order-controls__number" placeholder="10 шт." />
-                                    <button @click="addToOrder(product)" class="order-controls__button">Добавить в заказ</button>
+                                    <input class="order-controls__number" placeholder="кол-во" v-model="productAmount[i]"/>
+                                    <button @click="addToOrder(product, i)" 
+                                            class="order-controls__button" 
+                                            :disabled="isInCart(product.id)"
+                                    >
+                                        {{ isInCart(product.id) ? 'В корзине' : 'Добавить в корзину' }}
+                                    </button>
                                 </div>
                             </td>
                         </tr> 
-                        <ModalWindow class="product-modal" v-if="isOpen" @close-window="closeCard">
-                            <ProductCard :product="selectedProduct"/>                       
+                        <ModalWindow class="product-modal" v-if="cardIsOpen" @close-window="closeCard">
+                            <ProductCard :product="currentProduct"/>                       
                         </ModalWindow>
                     </tbody>   
                 </table>
+
             </div>
         </div>
     </div>
@@ -49,7 +55,7 @@
 
 <script setup lang="ts">
 import { Product } from '@/interfaces/Product';
-import { computed, ref } from 'vue';
+import { computed, ref, Ref } from 'vue';
 import { useStore } from 'vuex';
 import ModalWindow from './ModalWindow.vue';
 import ProductCard from './ProductCard.vue';
@@ -58,21 +64,26 @@ import ProductImage from './ProductImage.vue';
 const store = useStore();
 const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна производитель', 'Заказ']
 const products = computed(() => store.state.products.productsList) 
-const selectedProduct = ref()
-
-const isOpen = ref(false)
+const currentProduct = ref()
+const cartProducts = computed(() => store.state.cart.cartProducts)
+const productAmount = ref([])
+const cardIsOpen = ref(false)
 const openCard = (product:Product) => {
-    isOpen.value = true
-    selectedProduct.value = product
+    cardIsOpen.value = true
+    currentProduct.value = product
 }
 const closeCard = () => {
-    isOpen.value = false
+    cardIsOpen.value = false
 }
 
-const addToOrder = (product:string) => {
-    console.log(product)
+const addToOrder = (product:Product, i:number) => {
+    const amount = productAmount.value[i]
+    store.dispatch('ADD_TO_CART', {product: product, amount: amount, n_row: i})
 }
 
+const isInCart = (id:string) => {
+    return cartProducts.value.find((item:Product) => item.id === id)
+}
 </script>
 
 
