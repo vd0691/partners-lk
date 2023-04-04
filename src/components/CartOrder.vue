@@ -1,6 +1,7 @@
 <template>
     <div class="cart-order">
         <div class="cart-order__wrapper">
+            <ContractorSelect />
             <h3>Ваш заказ</h3>
             <div class="cart-order__info">
                 <div class="info-item">
@@ -43,9 +44,10 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios';
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
+import useContractorsService from '@/services/ContractorsService'
+import ContractorSelect from './ContractorSelect.vue';
 
 const store = useStore()
 const partnerId = computed(() => store.state.partner.partner?.id)
@@ -64,8 +66,9 @@ const checkoutBody = reactive({
         }
     ]
 })
+const contractors = useContractorsService()
 const getCheckout = () => {  
-   store.dispatch('CHECKOUT_ORDER', checkoutBody)
+   //store.dispatch('CHECKOUT_ORDER', checkoutBody)
 }
 
 </script>
