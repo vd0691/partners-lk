@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import { Product } from '@/interfaces/Product';
-import { computed, ref, Ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import ModalWindow from './ModalWindow.vue';
 import ProductCard from './ProductCard.vue';
@@ -78,7 +78,7 @@ const closeCard = () => {
 
 const addToOrder = (product:Product, i:number) => {
     const amount = productAmount.value[i]
-    store.dispatch('ADD_TO_CART', {product: product, amount: amount, n_row: i})
+    store.dispatch('ADD_TO_CART', {product: product, amount: amount})
 }
 
 const isInCart = (id:string) => {

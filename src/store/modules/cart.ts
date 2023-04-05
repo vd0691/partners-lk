@@ -12,6 +12,19 @@ const state = () => ({
 
 // getters
 const getters: GetterTree<State, any> = {
+    CART_PRODUCTS(state) {
+        return state.cartProducts.map((item, index) => {
+            return {
+                n_row: index + 1,
+                id: item.id,
+                amount: Number(item.amount),
+                sale: item.retailPriceBeforeDiscount,
+                discount: item.discount,
+                price: item.retailPrice,
+                total: item.amount * item.retailPrice
+            }
+        })
+    },
     GET_CART_TOTAL: (state) => {
         return state.cartProducts.reduce(({ totalWithDiscount, totalWithoutDiscount, discount, totalAmount }, product) => {
             return {
@@ -26,7 +39,7 @@ const getters: GetterTree<State, any> = {
 
 // actions
 const actions: ActionTree<State, ''> = {
-    ADD_TO_CART({ state, commit }, { product, amount, n_row }) {
+    ADD_TO_CART({ commit }, { product, amount }) {
 
         commit('ADD_TO_CART', {
             id: product.id,
@@ -35,16 +48,12 @@ const actions: ActionTree<State, ''> = {
             retailPriceBeforeDiscount: product.retailPriceBeforeDiscount,
             retailPrice: product.retailPrice,
             discount: product.discount,
-            amount: amount,
-            n_row
+            amount: amount
         })
-        localStorage.setItem('cart', JSON.stringify(state.cartProducts))
-
     },
 
     CHANGE_PRODUCT_AMOUNT({ state, commit }, { id, amount }) {
         commit('CHANGE_AMOUNT', { id, amount })
-        localStorage.setItem('cart', JSON.stringify(state.cartProducts))
     },
 
     CHECKOUT_ORDER({ commit }, products) {
@@ -63,23 +72,23 @@ const actions: ActionTree<State, ''> = {
 
 // mutations
 const mutations: MutationTree<State> = {
-    ADD_TO_CART(state, { n_row, id, amount = 1, retailPriceBeforeDiscount, discount, retailPrice, name, vendorCode }) {
+    ADD_TO_CART(state, { id, amount = 1, retailPriceBeforeDiscount, discount, retailPrice, name, vendorCode }) {
         state.cartProducts.push({
-            n_row: n_row + 1,
             id,
             amount: Number(amount),
             retailPriceBeforeDiscount,
             discount,
             retailPrice,
-            total: amount * retailPrice,
             name,
             vendorCode
         })
+        localStorage.setItem('cart', JSON.stringify(state.cartProducts))
     },
     CHANGE_AMOUNT(state, { id, amount }) {
         const cartItem = state.cartProducts.find(item => item.id === id)
         cartItem.amount = amount
         cartItem.total = amount * cartItem.retailPrice
+        localStorage.setItem('cart', JSON.stringify(state.cartProducts))
     },
     REMOVE_FROM_CART(state, productId) {
         const cartItem = state.cartProducts.find((item) => item.id === productId)

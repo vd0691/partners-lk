@@ -1,7 +1,7 @@
 <template>
     <div class="cart-order">
         <div class="cart-order__wrapper">
-            <ContractorSelect />
+            <ContractorSelect :is-selected="isContractorSelected"/>
             <h3>Ваш заказ</h3>
             <div class="cart-order__info">
                 <div class="info-item">
@@ -37,38 +37,38 @@
                     </span>
                 </div>
             </div>
-            <button @click="getCheckout"> Оформить заказ</button>
-
+            <button @click="getCheckout" :disabled="!contractorId"> Оформить заказ</button>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import useContractorsService from '@/services/ContractorsService'
 import ContractorSelect from './ContractorSelect.vue';
 
 const store = useStore()
 const partnerId = computed(() => store.state.partner.partner?.id)
-const cartProducts = computed(() => store.state.cart.cartProducts)
+const contractorId = computed(() => store.state.contractors.contractor.id)
+const isContractorSelected = ref()
+const productsForCheckout = computed(() => store.getters.CART_PRODUCTS)
 const cartTotal = computed(() => store.getters.GET_CART_TOTAL)
 const checkoutBody = reactive({
     sumWithoutDiscount: cartTotal.value.totalWithoutDiscount,
     sumOfDiscount: cartTotal.value.discount,
     sumWithDiscount: cartTotal.value.totalWithDiscount,
-    contractorId: "string",
+    contractorId: contractorId.value,
     partnerId: partnerId.value,
-    orderVts: cartProducts.value,
+    orderVts: productsForCheckout.value,
     vtOrderStatuses: [
         {
             "userId": "string"
         }
     ]
 })
-const contractors = useContractorsService()
+
 const getCheckout = () => {  
-   //store.dispatch('CHECKOUT_ORDER', checkoutBody)
+   store.dispatch('CHECKOUT_ORDER', checkoutBody)
 }
 
 </script>
