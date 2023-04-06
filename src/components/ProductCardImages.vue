@@ -36,7 +36,7 @@ import '@/assets/scss/carousel.css'
 import { Product } from '@/interfaces/Product';
 import useImagesService from '@/services/ImagesService';
 import { ref, inject, onMounted } from 'vue';
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { Carousel, Slide, Navigation } from 'vue3-carousel'
 import LoaderIndicator from './LoaderIndicator.vue';
 
 const isDataLoading = ref(true)
@@ -68,7 +68,11 @@ onMounted(() => {
         min-height: 500px;
         display: flex;
         flex-direction: column;
-        justify-content: center;        
+        justify-content: center;    
+        
+        @media screen and (max-width: 1024px) {
+            min-height: 400px;
+        }
     }
 }
 #gallery {

@@ -68,15 +68,26 @@ onMounted(() => {
 <style scoped lang="scss">
 
 .catalog-menu {
+  
     &__list {
         list-style: none;
         text-align: left;
         padding: 0 15px 0 0;
+
+        @media screen and (max-width: 1024px) {
+            display: flex;   
+            flex-wrap: wrap;
+            padding: 0;
+        }
     }
 
 }
 .menu-category {
     margin-top: 10px;
+
+    @media screen and (max-width: 1024px) {
+        width: 50%;
+    }
 
     &__list {
         list-style: none;

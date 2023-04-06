@@ -1,6 +1,6 @@
-import router from "@/router";
 import usePartnerService from "@/services/PartnerService";
 import { ActionTree, MutationTree } from "vuex";
+import store from "..";
 
 const partnerService = usePartnerService()
 interface State {
@@ -22,6 +22,7 @@ const actions:ActionTree<State, ''> = {
 const mutations:MutationTree<State> = {
     PARTNER_ID(state, payload) {
         state.partner = payload
+        store.dispatch('GET_CONTRACTORS', payload.id)
     }        
 }
 

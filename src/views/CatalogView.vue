@@ -27,7 +27,7 @@ import CategoriesMenu from '@/components/CategoriesMenu.vue';
 import FilterBox from '@/components/FilterBox.vue';
 import PagePagination from '@/components/PagePagination.vue';
 import ProductsList from '@/components/ProductsList.vue';
-import { computed, watch} from 'vue';
+import { computed, watch, onMounted} from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 
@@ -39,10 +39,8 @@ const itemsNumber = computed(() => store.state.dataSort.perPage)
 const currentCategory = computed(() => route.params.category)
 const currentSubcategory = computed(() => route.params.subcategory)
 const partnerId = computed(() => store.state.partner.partner?.id)
-const currentUser = computed(() => store.state.auth.user.username)
 
 watch([currentCategory, currentSubcategory, currentPage, itemsNumber, partnerId], () => {
-  store.dispatch('GET_PARTNER', currentUser.value)
   if (partnerId.value) {
       store.dispatch('FETCH_PRODUCTS', {
       partnerId: partnerId.value,
@@ -63,16 +61,28 @@ watch([currentCategory, currentSubcategory, currentPage, itemsNumber, partnerId]
 
   &__body {
     display: flex;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
   }
 
   &__main-content {
     width: 100%;
     padding: 0 0 0 18px;
+
+    @media (max-width: 1200px) {
+      padding: 0;
+    }
   }
 
   &__menu {
-    max-width: 300px;
+    max-width: 400px;
     width: 100%;
+
+    @media screen and (max-width: 1024px) {
+        max-width: 100%;     
+    }
   }
 }
 

@@ -28,6 +28,10 @@
         padding: 10px;
         background-color: #fff;
         border-radius: 10px;
+        
+        @media screen and (max-width: 1024px) {
+            width: 80%;
+        }
     }
 }
 

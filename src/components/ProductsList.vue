@@ -13,7 +13,7 @@
                         </tr>
                     </thead>
                     <tbody class="products-table__body">
-                        <tr class="products-table__products-list" v-for="product in products" :key="product.id">
+                        <tr class="products-table__products-list" v-for="product, i in products" :key="product.id">
                             <td class="products-table__product-item"><span class="product-id">{{ product.vendorCode }}</span></td>
                             <td class="products-table__product-item">
                                 <div class="products-table__item-wrapper">
@@ -32,49 +32,58 @@
                             <td class="products-table__product-item"><span class="product-country">{{ product.countryOfOrigin }}</span></td>
                             <td class="products-table__product-item">
                                 <div class="order-controls">
-                                    <input class="order-controls__number" placeholder="10 шт." />
-                                    <button @click="addToOrder(product)" class="order-controls__button">Добавить в заказ</button>
+                                    <input class="order-controls__number" placeholder="кол-во" v-model="productAmount[i]"/>
+                                    <button @click="addToOrder(product, i)" 
+                                            class="order-controls__button" 
+                                            :disabled="isInCart(product.id)"
+                                    >
+                                        {{ isInCart(product.id) ? 'В корзине' : 'В корзину' }}
+                                    </button>
                                 </div>
                             </td>
                         </tr> 
-                        <ModalWindow class="product-modal" v-if="isOpen" @close-window="closeCard">
-                            <ProductCard :product="selectedProduct"/>                       
+                        <ModalWindow class="product-modal" v-if="cardIsOpen" @close-window="closeCard">
+                            <ProductCard :product="currentProduct"/>                       
                         </ModalWindow>
                     </tbody>   
                 </table>
+
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { Product } from '@/interfaces/Product';
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import ModalWindow from './ModalWindow.vue';
 import ProductCard from './ProductCard.vue';
 import ProductImage from './ProductImage.vue';
 
-const test = () => {
-    console.log('1111')
-}
 const store = useStore();
-const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна производитель', 'Заказ']
+const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна', 'Заказ']
 const products = computed(() => store.state.products.productsList) 
-const selectedProduct = ref()
-
-const isOpen = ref(false)
-const openCard = (product:{[key:string]:any}) => {
-    isOpen.value = true
-    selectedProduct.value = product
+const currentProduct = ref()
+const cartProducts = computed(() => store.state.cart.cartProducts)
+const productAmount = ref([])
+const cardIsOpen = ref(false)
+const openCard = (product:Product) => {
+    cardIsOpen.value = true
+    currentProduct.value = product
 }
 const closeCard = () => {
-    isOpen.value = false
+    cardIsOpen.value = false
 }
 
-const addToOrder = (product:string) => {
-    console.log(product)
+const addToOrder = (product:Product, i:number) => {
+    const amount = productAmount.value[i]
+    store.dispatch('ADD_TO_CART', {product: product, amount: amount})
 }
 
+const isInCart = (id:string) => {
+    return cartProducts.value.find((item:Product) => item.id === id)
+}
 </script>
 
 
@@ -84,6 +93,7 @@ const addToOrder = (product:string) => {
     border: 1px solid #eee;
     border-spacing: 0;
     width: 100%;
+    font-size: 14px;
 
     &__header {
         background: #D1EADF;
@@ -92,6 +102,10 @@ const addToOrder = (product:string) => {
         border: 1px solid #eee;
         padding: 7px;
         font-size: 11px;
+
+        @media screen and (max-width: 1024px) {
+            padding: 5px;
+        }
     }
     &__products-list {
         height: 50px;
@@ -100,6 +114,12 @@ const addToOrder = (product:string) => {
         height: 40px;
         padding: 10px;
         border: 1px solid #eee;
+        text-align: center;
+
+        @media screen and (max-width: 1024px) {
+            padding: 6px;       
+        }
+
     }
     &__item-wrapper {
         display: flex;
@@ -111,13 +131,28 @@ const addToOrder = (product:string) => {
     display: flex;
     justify-content: center;
 
+    @media screen and (max-width: 1024px) {
+        flex-direction: column;        
+    }
+
     &__button {
         margin-left: 6px;
+
+        @media screen and (max-width: 1024px) {
+            margin: 10px 0 0 0;        
+        }
+
     }
 
     &__number {
         width: 28%;
+        font-size: 11px;
         text-align: center;
+
+        @media screen and (max-width: 1024px) {
+            width: 100%;    
+        }
+
     }
 }
 
@@ -131,6 +166,10 @@ const addToOrder = (product:string) => {
 
 .product-name {
     text-align: left;
+
+    @media screen and (max-width: 1024px) {
+        font-size: 14px;      
+    }
 }
 
 .product-novelty {

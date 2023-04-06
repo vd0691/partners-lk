@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { AxiosError } from 'axios'
 import store from '@/store'
+import router from '@/router'
 
 const API_URL = process.env.VUE_APP_API_URL
 
@@ -13,7 +14,7 @@ export default function useAuthService() {
                 username: username,
                 password: password
             })
-            localStorage.setItem('user', JSON.stringify(response.data))
+            return response.data
         } catch (errors) {
             const error = errors as AxiosError
             if (error.response?.status === 401) {
@@ -24,6 +25,7 @@ export default function useAuthService() {
 
     const logout = () => {
         localStorage.removeItem('user')
+        router.push('login')
     }
 
     return { login, logout }
