@@ -68,7 +68,11 @@ onMounted(() => {
         min-height: 500px;
         display: flex;
         flex-direction: column;
-        justify-content: center;        
+        justify-content: center;    
+        
+        @media screen and (max-width: 1024px) {
+            min-height: 400px;
+        }
     }
 }
 #gallery {

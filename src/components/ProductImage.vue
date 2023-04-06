@@ -51,10 +51,18 @@ const props = defineProps({
     align-items: center;
     justify-content: center;
 
+    @media screen and (max-width: 1024px) {
+        min-height: 400px;
+    }
+
     &__image {
         height: 500px;
         display: flex;
         justify-content: center;
+
+        @media screen and (max-width: 1024px) {
+            height: 400px;
+        }
 
         & img {
             height: 100%;

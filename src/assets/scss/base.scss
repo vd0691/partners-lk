@@ -22,6 +22,7 @@ h1 {
     max-width: 1480px;
     margin: 0 auto;
     width: 100%;
+    padding: 0 10px;
 }
 
 .form-fields {
@@ -109,4 +110,8 @@ button {
         border: 1px solid #eee;
     }
 
+}
+
+select {
+    width: 100%;
 }

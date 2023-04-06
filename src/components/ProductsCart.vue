@@ -67,15 +67,19 @@ watch([currentPage], () => {
 
     &__wrapper {
         display: flex;
+
+        @media screen and (max-width: 1024px) {
+            flex-direction: column;            
+        }
     }
 
     &__content {
         width: 70%;
         margin-right: 30px;
-    }
 
-    &__sidebar {
-        width: 20%;
+        @media screen and (max-width: 1024px) {
+            width: 100%;            
+        }
     }
 
     &__products-box {

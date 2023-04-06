@@ -61,16 +61,28 @@ watch([currentCategory, currentSubcategory, currentPage, itemsNumber, partnerId]
 
   &__body {
     display: flex;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
   }
 
   &__main-content {
     width: 100%;
     padding: 0 0 0 18px;
+
+    @media (max-width: 1200px) {
+      padding: 0;
+    }
   }
 
   &__menu {
-    max-width: 300px;
+    max-width: 400px;
     width: 100%;
+
+    @media screen and (max-width: 1024px) {
+        max-width: 100%;     
+    }
   }
 }
 

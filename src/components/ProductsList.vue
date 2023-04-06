@@ -37,7 +37,7 @@
                                             class="order-controls__button" 
                                             :disabled="isInCart(product.id)"
                                     >
-                                        {{ isInCart(product.id) ? 'В корзине' : 'Добавить в корзину' }}
+                                        {{ isInCart(product.id) ? 'В корзине' : 'В корзину' }}
                                     </button>
                                 </div>
                             </td>
@@ -62,7 +62,7 @@ import ProductCard from './ProductCard.vue';
 import ProductImage from './ProductImage.vue';
 
 const store = useStore();
-const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна производитель', 'Заказ']
+const headerTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна', 'Заказ']
 const products = computed(() => store.state.products.productsList) 
 const currentProduct = ref()
 const cartProducts = computed(() => store.state.cart.cartProducts)
@@ -93,6 +93,7 @@ const isInCart = (id:string) => {
     border: 1px solid #eee;
     border-spacing: 0;
     width: 100%;
+    font-size: 14px;
 
     &__header {
         background: #D1EADF;
@@ -101,6 +102,10 @@ const isInCart = (id:string) => {
         border: 1px solid #eee;
         padding: 7px;
         font-size: 11px;
+
+        @media screen and (max-width: 1024px) {
+            padding: 5px;
+        }
     }
     &__products-list {
         height: 50px;
@@ -109,6 +114,12 @@ const isInCart = (id:string) => {
         height: 40px;
         padding: 10px;
         border: 1px solid #eee;
+        text-align: center;
+
+        @media screen and (max-width: 1024px) {
+            padding: 6px;       
+        }
+
     }
     &__item-wrapper {
         display: flex;
@@ -120,13 +131,28 @@ const isInCart = (id:string) => {
     display: flex;
     justify-content: center;
 
+    @media screen and (max-width: 1024px) {
+        flex-direction: column;        
+    }
+
     &__button {
         margin-left: 6px;
+
+        @media screen and (max-width: 1024px) {
+            margin: 10px 0 0 0;        
+        }
+
     }
 
     &__number {
         width: 28%;
+        font-size: 11px;
         text-align: center;
+
+        @media screen and (max-width: 1024px) {
+            width: 100%;    
+        }
+
     }
 }
 
@@ -140,6 +166,10 @@ const isInCart = (id:string) => {
 
 .product-name {
     text-align: left;
+
+    @media screen and (max-width: 1024px) {
+        font-size: 14px;      
+    }
 }
 
 .product-novelty {
