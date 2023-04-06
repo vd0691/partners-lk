@@ -14,9 +14,15 @@ a {
     text-decoration: none;
 }
 
+h1 {
+    text-align: center;
+}
+
 .container {
-    width: 1280px;
+    max-width: 1480px;
     margin: 0 auto;
+    width: 100%;
+    padding: 0 10px;
 }
 
 .form-fields {
@@ -78,19 +84,34 @@ button {
     }
 }
 
-.link {
-    color: #505050;
-}
-
-.link--gray {
-    color: #7b7b7b;
-}
-
-.catalog-link {
-    display: flex;
-    line-height: 1.4;
-}
-
-.catalog-link--main {
+.menu-link--main {
     font-weight: bold;
+}
+
+.products-table {
+    border: 1px solid #eee;
+    border-spacing: 0;
+    width: 100%;
+
+
+    &__header {
+        background: #D1EADF;
+    }
+
+    &__titles-text {
+        border: 1px solid #eee;
+        padding: 7px;
+        font-size: 11px;
+    }
+
+    &__product-item {
+        height: 40px;
+        padding: 10px;
+        border: 1px solid #eee;
+    }
+
+}
+
+select {
+    width: 100%;
 }

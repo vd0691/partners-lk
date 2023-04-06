@@ -13,6 +13,7 @@
     "vue": "^3.2.13",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.0.3",
+    "vue3-carousel": "^0.2.13",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

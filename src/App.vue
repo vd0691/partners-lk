@@ -5,12 +5,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, onUpdated, computed } from 'vue';
+import { useStore } from 'vuex';
 import { useInterceptors } from './helpers/AxiosInterceptors';
 import DefaultLayout from './layouts/DefaultLayout.vue';
 
+const store = useStore()
+const currentUser = computed(() => store.state.auth.user.username)
 onMounted(() => {
   useInterceptors()
+})
+
+onUpdated(() => {
+  if (JSON.parse(localStorage.getItem('user') || '{}').token) {
+    store.dispatch('GET_PARTNER', currentUser.value)
+  }
 })
 </script>
 
@@ -19,12 +28,10 @@ onMounted(() => {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
 nav {
-  padding: 30px;
 
   a {
     font-weight: bold;
