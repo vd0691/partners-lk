@@ -24,7 +24,7 @@ const actions:ActionTree<State, ''> = {
         .then(
             user => {
                 commit('loginSucces', user)
-                localStorage.setItem('user', JSON.stringify(user))
+                localStorage.setItem('user', JSON.stringify(user) || '')
                 router.push('/')
             }
         )       
