@@ -1,17 +1,14 @@
-import { Product } from "@/interfaces/Product"
+import { CartState } from "@/interfaces/StoreInterface"
 import { ActionTree, GetterTree, MutationTree } from "vuex"
 
 const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-interface State {
-    cartProducts: any[]
-}
 
-const state = () => ({
-    cartProducts: <State>cart
+const state = ():CartState => ({
+    cartProducts: cart
 })
 
 // getters
-const getters: GetterTree<State, any> = {
+const getters: GetterTree<CartState, any> = {
     CART_PRODUCTS(state) {
         return state.cartProducts.map((item, index) => {
             return {
@@ -38,7 +35,7 @@ const getters: GetterTree<State, any> = {
 }
 
 // actions
-const actions: ActionTree<State, ''> = {
+const actions: ActionTree<CartState, ''> = {
     ADD_TO_CART({ commit }, { product, amount }) {
 
         commit('ADD_TO_CART', {
@@ -52,7 +49,7 @@ const actions: ActionTree<State, ''> = {
         })
     },
 
-    CHANGE_PRODUCT_AMOUNT({ state, commit }, { id, amount }) {
+    CHANGE_PRODUCT_AMOUNT({ commit }, { id, amount }) {
         commit('CHANGE_AMOUNT', { id, amount })
     },
 
@@ -71,7 +68,7 @@ const actions: ActionTree<State, ''> = {
 }
 
 // mutations
-const mutations: MutationTree<State> = {
+const mutations: MutationTree<CartState> = {
     ADD_TO_CART(state, { id, amount = 1, retailPriceBeforeDiscount, discount, retailPrice, name, vendorCode }) {
         state.cartProducts.push({
             id,
@@ -85,9 +82,11 @@ const mutations: MutationTree<State> = {
         localStorage.setItem('cart', JSON.stringify(state.cartProducts))
     },
     CHANGE_AMOUNT(state, { id, amount }) {
-        const cartItem = state.cartProducts.find(item => item.id === id)
-        cartItem.amount = amount
-        cartItem.total = amount * cartItem.retailPrice
+        const cartItem  = state.cartProducts.find(item => item.id === id)
+        if (cartItem) {
+            cartItem.amount = amount
+            cartItem.total = amount * cartItem.retailPrice
+        }
         localStorage.setItem('cart', JSON.stringify(state.cartProducts))
     },
     REMOVE_FROM_CART(state, productId) {
