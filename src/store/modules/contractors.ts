@@ -1,5 +1,5 @@
 import { Contractor } from "@/interfaces/Contractor";
-import { ContractorsState } from "@/interfaces/StoreInterface";
+import { ContractorsState, RootState } from "@/interfaces/StoreInterface";
 import useContractorsService from "@/services/ContractorsService";
 import { ActionTree, MutationTree } from "vuex";
 
@@ -11,7 +11,7 @@ const state = ():ContractorsState => ({
     contractor: currentContractor
 })
 
-const actions:ActionTree<ContractorsState, ''> = {
+const actions:ActionTree<ContractorsState, RootState> = {
     async GET_CONTRACTORS({ commit }, partnerId) {
         const contractors = await contractorsService.getContractors(partnerId)
         commit('GET_CONTRACTORS', contractors)  

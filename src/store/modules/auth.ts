@@ -1,4 +1,4 @@
-import { AuthState } from "@/interfaces/StoreInterface";
+import { AuthState, RootState } from "@/interfaces/StoreInterface";
 import router from "@/router";
 import useAuthService from "@/services/authService";
 import { ActionTree, MutationTree } from "vuex";
@@ -13,7 +13,7 @@ const state = ():AuthState => ({
     }   
 })
 
-const actions:ActionTree<AuthState, ''> = {
+const actions:ActionTree<AuthState, RootState> = {
     login({ commit }, user) {
         authService.login(user.username, user.password)
         .then(

@@ -1,14 +1,14 @@
-import { CartState } from "@/interfaces/StoreInterface"
+import { CartState, RootState } from "@/interfaces/StoreInterface"
 import { ActionTree, GetterTree, MutationTree } from "vuex"
 
 const cart = JSON.parse(localStorage.getItem('cart') || '[]')
 
-const state = ():CartState => ({
+const state = (): CartState => ({
     cartProducts: cart
 })
 
 // getters
-const getters: GetterTree<CartState, any> = {
+const getters: GetterTree<CartState, RootState> = {
     CART_PRODUCTS(state) {
         return state.cartProducts.map((item, index) => {
             return {
@@ -35,7 +35,7 @@ const getters: GetterTree<CartState, any> = {
 }
 
 // actions
-const actions: ActionTree<CartState, ''> = {
+const actions: ActionTree<CartState, RootState> = {
     ADD_TO_CART({ commit }, { product, amount }) {
 
         commit('ADD_TO_CART', {
@@ -53,9 +53,20 @@ const actions: ActionTree<CartState, ''> = {
         commit('CHANGE_AMOUNT', { id, amount })
     },
 
-    CHECKOUT_ORDER({ commit }, products) {
-        commit('CLEAR_CART')
-        console.log(products)
+    CHECKOUT_ORDER({ state, getters, rootState }) {
+        console.log({
+            sumWithoutDiscount: getters.GET_CART_TOTAL.totalWithoutDiscount,
+            sumOfDiscount: getters.GET_CART_TOTAL.discount,
+            sumWithDiscount: getters.GET_CART_TOTAL.totalWithDiscount,
+            contractorId: rootState.contractors.contractor?.id,
+            partnerId: rootState.partner.partner.id,
+            orderVts: getters.CART_PRODUCTS,
+            vtOrderStatuses: [
+                {
+                    "userId": "string"
+                }
+            ]
+        })
     },
 
     REMOVE_FROM_CART({ commit }, productId) {
@@ -82,7 +93,7 @@ const mutations: MutationTree<CartState> = {
         localStorage.setItem('cart', JSON.stringify(state.cartProducts))
     },
     CHANGE_AMOUNT(state, { id, amount }) {
-        const cartItem  = state.cartProducts.find(item => item.id === id)
+        const cartItem = state.cartProducts.find(item => item.id === id)
         if (cartItem) {
             cartItem.amount = amount
             cartItem.total = amount * cartItem.retailPrice

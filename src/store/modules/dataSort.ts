@@ -1,10 +1,5 @@
-import { DataSortState } from "@/interfaces/StoreInterface"
+import { DataSortState, RootState } from "@/interfaces/StoreInterface"
 import { ActionTree, MutationTree } from "vuex"
-
-interface State {
-    perPage:number,
-    sort: string,
-}
 
 const params = JSON.parse(localStorage.getItem('sortParams') || '{}')
 
@@ -13,7 +8,7 @@ const state = ():DataSortState => ({
     sort: params.sort
 })
 
-const actions:ActionTree<DataSortState, ''> = {
+const actions:ActionTree<DataSortState, RootState> = {
     GET_PER_PAGE({commit}, payload) {
         commit('PER_PAGE', payload)
     },

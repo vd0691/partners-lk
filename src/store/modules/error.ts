@@ -1,11 +1,11 @@
-import { ErrorsState } from "@/interfaces/StoreInterface";
+import { ErrorsState, RootState } from "@/interfaces/StoreInterface";
 import { ActionTree, MutationTree } from "vuex"
 
 const state = ():ErrorsState => ({
     message: null     
 })
 
-const actions:ActionTree<ErrorsState, ''> = {
+const actions:ActionTree<ErrorsState, RootState> = {
     getErrorMessage({commit}, message) {
         commit('errorMessage', message)
     },

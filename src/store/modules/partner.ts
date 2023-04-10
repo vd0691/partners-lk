@@ -1,7 +1,7 @@
 import usePartnerService from "@/services/PartnerService";
 import { ActionTree, MutationTree } from "vuex";
 import store from "..";
-import { PartnerState } from "@/interfaces/StoreInterface";
+import { PartnerState, RootState } from "@/interfaces/StoreInterface";
 
 const partnerService = usePartnerService()
 
@@ -9,7 +9,7 @@ const state = ():PartnerState => ({
     partner: {} 
 })
 
-const actions:ActionTree<PartnerState, ''> = {
+const actions:ActionTree<PartnerState, RootState> = {
     async GET_PARTNER({ commit }, username) {
         const partner = await partnerService.getPartner(username)
         commit('PARTNER_ID', partner)  
