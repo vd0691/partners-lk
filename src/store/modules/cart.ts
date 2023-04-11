@@ -1,17 +1,15 @@
-import { Product } from "@/interfaces/Product"
+import { CartState, RootState } from "@/interfaces/StoreInterface"
+import useOrdersService from "@/services/OrdersService"
 import { ActionTree, GetterTree, MutationTree } from "vuex"
 
 const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-interface State {
-    cartProducts: any[]
-}
-
-const state = () => ({
-    cartProducts: <State>cart
+const ordersService = useOrdersService()
+const state = (): CartState => ({
+    cartProducts: cart
 })
 
 // getters
-const getters: GetterTree<State, any> = {
+const getters: GetterTree<CartState, RootState> = {
     CART_PRODUCTS(state) {
         return state.cartProducts.map((item, index) => {
             return {
@@ -38,7 +36,7 @@ const getters: GetterTree<State, any> = {
 }
 
 // actions
-const actions: ActionTree<State, ''> = {
+const actions: ActionTree<CartState, RootState> = {
     ADD_TO_CART({ commit }, { product, amount }) {
 
         commit('ADD_TO_CART', {
@@ -52,13 +50,21 @@ const actions: ActionTree<State, ''> = {
         })
     },
 
-    CHANGE_PRODUCT_AMOUNT({ state, commit }, { id, amount }) {
+    CHANGE_PRODUCT_AMOUNT({ commit }, { id, amount }) {
         commit('CHANGE_AMOUNT', { id, amount })
     },
 
-    CHECKOUT_ORDER({ commit }, products) {
-        commit('CLEAR_CART')
-        console.log(products)
+    async CHECKOUT_ORDER({ state, getters, rootState }) {
+        const checkOrder = await ordersService.postOrder({
+            sumWithoutDiscount: getters.GET_CART_TOTAL.totalWithoutDiscount,
+            sumOfDiscount: getters.GET_CART_TOTAL.discount,
+            sumWithDiscount: getters.GET_CART_TOTAL.totalWithDiscount,
+            contractorId: rootState.contractors.contractor.id,
+            partnerId: rootState.partner.partner.id,
+            products: getters.CART_PRODUCTS,
+            userId: rootState.user.userId.id
+        })
+        console.log(checkOrder)             
     },
 
     REMOVE_FROM_CART({ commit }, productId) {
@@ -71,7 +77,7 @@ const actions: ActionTree<State, ''> = {
 }
 
 // mutations
-const mutations: MutationTree<State> = {
+const mutations: MutationTree<CartState> = {
     ADD_TO_CART(state, { id, amount = 1, retailPriceBeforeDiscount, discount, retailPrice, name, vendorCode }) {
         state.cartProducts.push({
             id,
@@ -86,8 +92,10 @@ const mutations: MutationTree<State> = {
     },
     CHANGE_AMOUNT(state, { id, amount }) {
         const cartItem = state.cartProducts.find(item => item.id === id)
-        cartItem.amount = amount
-        cartItem.total = amount * cartItem.retailPrice
+        if (cartItem) {
+            cartItem.amount = amount
+            cartItem.total = amount * cartItem.retailPrice
+        }
         localStorage.setItem('cart', JSON.stringify(state.cartProducts))
     },
     REMOVE_FROM_CART(state, productId) {

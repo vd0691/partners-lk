@@ -1,22 +1,16 @@
+import { ProductsState, RootState } from "@/interfaces/StoreInterface"
 import useProductsService from "@/services/ProductsService"
 import { ActionTree, GetterTree, MutationTree } from "vuex"
 
 const productsService = useProductsService()
 
-interface State {
-    productsList: [],
-    productsCategories: [],
-    totalItems: number
-}
-
-
-const state = () => ({
+const state = ():ProductsState => ({
     productsList: [],
     productsCategories: [],
     totalItems: 0
 })
 
-const getters:GetterTree<State, ''> = {
+const getters:GetterTree<ProductsState, RootState> = {
     GET_CATEGORIES(state) {
         return state.productsCategories.filter((item: {level: number}) => item.level === 1)
     },
@@ -26,7 +20,7 @@ const getters:GetterTree<State, ''> = {
     }
 }
 
-const actions:ActionTree<State, ''> = {
+const actions:ActionTree<ProductsState, RootState> = {
     async FETCH_PRODUCTS({commit}, {id, from, size, level, partnerId}) {
        const products = await productsService.getProducts(id, from, size, level, partnerId)
         commit('PRODUCTS_REQUEST', products?.data.content)
@@ -38,7 +32,7 @@ const actions:ActionTree<State, ''> = {
     }
 }
 
-const mutations:MutationTree<State> = {
+const mutations:MutationTree<ProductsState> = {
     PRODUCTS_REQUEST(state, payload) {
         state.productsList = payload
     },

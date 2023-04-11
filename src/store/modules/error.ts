@@ -1,14 +1,11 @@
+import { ErrorsState, RootState } from "@/interfaces/StoreInterface";
 import { ActionTree, MutationTree } from "vuex"
-interface State {
-    message: string | null
-}
-const namespaced = true;
 
-const state = () => ({
+const state = ():ErrorsState => ({
     message: null     
 })
 
-const actions:ActionTree<State, ''> = {
+const actions:ActionTree<ErrorsState, RootState> = {
     getErrorMessage({commit}, message) {
         commit('errorMessage', message)
     },
@@ -19,7 +16,7 @@ const actions:ActionTree<State, ''> = {
     
 }
 
-const mutations:MutationTree<State> = {
+const mutations:MutationTree<ErrorsState> = {
     errorMessage(state, message) {
         state.message = message 
     },
@@ -32,6 +29,5 @@ const mutations:MutationTree<State> = {
 export default {
     state,
     actions,
-    mutations,
-    namespaced
+    mutations
 }

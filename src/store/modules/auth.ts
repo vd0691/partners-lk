@@ -1,24 +1,19 @@
+import { AuthState, RootState } from "@/interfaces/StoreInterface";
 import router from "@/router";
 import useAuthService from "@/services/authService";
 import { ActionTree, MutationTree } from "vuex";
 
-
-interface State {
-    user: string | null
-    status: { loggedIn: boolean }
-}
-
 const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
 const authService = useAuthService()
 
-const state = () => ({
+const state = ():AuthState => ({
     user: currentUser ? currentUser : null,
     status: {
         loggedIn: currentUser ? true : false
     }   
 })
 
-const actions:ActionTree<State, ''> = {
+const actions:ActionTree<AuthState, RootState> = {
     login({ commit }, user) {
         authService.login(user.username, user.password)
         .then(
@@ -36,7 +31,7 @@ const actions:ActionTree<State, ''> = {
     }
 }
 
-const mutations:MutationTree<State> = {
+const mutations:MutationTree<AuthState> = {
     loginSucces(state, user) {
         state.status = { loggedIn: true }
         state.user = user

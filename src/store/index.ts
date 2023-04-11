@@ -6,8 +6,10 @@ import dataSort from './modules/dataSort'
 import partner from './modules/partner'
 import cart from './modules/cart'
 import contractors from './modules/contractors'
+import user from './modules/user'
+import { RootState } from '@/interfaces/StoreInterface'
 
-export default createStore({
+export default createStore<RootState>({
   modules: {
     auth,
     error,
@@ -15,6 +17,7 @@ export default createStore({
     dataSort,
     partner,
     cart, 
-    contractors 
+    contractors,
+    user 
   }
 })

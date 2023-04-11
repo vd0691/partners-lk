@@ -43,32 +43,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, ref} from 'vue';
 import { useStore } from 'vuex';
 import ContractorSelect from './ContractorSelect.vue';
 
 const store = useStore()
-const partnerId = computed(() => store.state.partner.partner?.id)
 const contractorId = computed(() => store.state.contractors.contractor.id)
 const isContractorSelected = ref()
-const productsForCheckout = computed(() => store.getters.CART_PRODUCTS)
 const cartTotal = computed(() => store.getters.GET_CART_TOTAL)
-const checkoutBody = reactive({
-    sumWithoutDiscount: cartTotal.value.totalWithoutDiscount,
-    sumOfDiscount: cartTotal.value.discount,
-    sumWithDiscount: cartTotal.value.totalWithDiscount,
-    contractorId: contractorId.value,
-    partnerId: partnerId.value,
-    orderVts: productsForCheckout.value,
-    vtOrderStatuses: [
-        {
-            "userId": "string"
-        }
-    ]
-})
 
 const getCheckout = () => {  
-   store.dispatch('CHECKOUT_ORDER', checkoutBody)
+   store.dispatch('CHECKOUT_ORDER')
 }
 
 </script>

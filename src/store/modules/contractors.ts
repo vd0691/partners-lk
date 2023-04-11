@@ -1,21 +1,17 @@
 import { Contractor } from "@/interfaces/Contractor";
+import { ContractorsState, RootState } from "@/interfaces/StoreInterface";
 import useContractorsService from "@/services/ContractorsService";
 import { ActionTree, MutationTree } from "vuex";
 
 const currentContractor = JSON.parse(localStorage.getItem('contractor') || '{}')
 const contractorsService = useContractorsService()
-interface State {
-    contractors: any[],
-    contractor: Contractor
-}
 
-
-const state = () => ({
+const state = ():ContractorsState => ({
     contractors: [],
     contractor: currentContractor
 })
 
-const actions:ActionTree<State, ''> = {
+const actions:ActionTree<ContractorsState, RootState> = {
     async GET_CONTRACTORS({ commit }, partnerId) {
         const contractors = await contractorsService.getContractors(partnerId)
         commit('GET_CONTRACTORS', contractors)  
@@ -26,7 +22,7 @@ const actions:ActionTree<State, ''> = {
     }
 }
 
-const mutations:MutationTree<State> = {
+const mutations:MutationTree<ContractorsState> = {
     GET_CONTRACTORS(state, payload) {
         state.contractors = payload
     },

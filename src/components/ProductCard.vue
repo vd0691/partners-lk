@@ -29,8 +29,13 @@
             </div>
             <div class="product-card__order-box">
                 <div class="order-controls">
-                    <input class="order-controls__number" />
-                    <button class="order-controls__button">Добавить в заказ</button>
+                    <input class="order-controls__number" v-model.number="amount"/>
+                    <button class="order-controls__button" 
+                        @click="addToOrder" 
+                        :disabled="isInCart(props.product.id)"
+                    >
+                        {{ isInCart(props.product.id) ? 'В корзине' : 'В корзину' }}
+                    </button>
                 </div>                    
             </div>
         </div>         
@@ -39,13 +44,23 @@
 
 <script setup lang="ts">
 import { Product } from '@/interfaces/Product';
-import { provide } from 'vue';
+import { computed, provide, ref } from 'vue';
 import ProductCardImages from './ProductCardImages.vue'
+import { useStore } from 'vuex';
 
+const store = useStore()
 const props = defineProps<{
   product: Product
 }>()
 
+const amount = ref(1)
+const cartProducts = computed(() => store.state.cart.cartProducts)
+const addToOrder = () => {
+    store.dispatch('ADD_TO_CART', {product: props.product, amount: amount.value})
+}
+const isInCart = (id:string) => {
+    return cartProducts.value.find((item:Product) => item.id === id)
+}
 provide('product', props.product)
 </script>
 
