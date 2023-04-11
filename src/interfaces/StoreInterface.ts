@@ -1,4 +1,5 @@
 import { CartProduct, Contractor, Partner, Product, ProductCategories, User } from "./Interfaces";
+import { UserId } from "./UserId";
 export interface RootState {
     auth: AuthState
     error: ErrorsState
@@ -6,7 +7,8 @@ export interface RootState {
     dataSort: DataSortState
     partner: PartnerState
     cart: CartState 
-    contractors: ContractorsState 
+    contractors: ContractorsState,
+    user: UserState 
 }
 
 export interface CartState {
@@ -42,4 +44,8 @@ export interface DataSortState {
 
 export interface ErrorsState {
     message: string | null
+}
+
+export interface UserState {
+    userId: UserId
 }

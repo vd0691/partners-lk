@@ -19,6 +19,7 @@ onMounted(() => {
 onUpdated(() => {
   if (JSON.parse(localStorage.getItem('user') || '{}').token) {
     store.dispatch('GET_PARTNER', currentUser.value)
+    store.dispatch('GET_USER_ID', currentUser.value)
   }
 })
 </script>

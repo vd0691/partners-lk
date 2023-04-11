@@ -54,19 +54,7 @@ const actions: ActionTree<CartState, RootState> = {
     },
 
     CHECKOUT_ORDER({ state, getters, rootState }) {
-        console.log({
-            sumWithoutDiscount: getters.GET_CART_TOTAL.totalWithoutDiscount,
-            sumOfDiscount: getters.GET_CART_TOTAL.discount,
-            sumWithDiscount: getters.GET_CART_TOTAL.totalWithDiscount,
-            contractorId: rootState.contractors.contractor?.id,
-            partnerId: rootState.partner.partner.id,
-            orderVts: getters.CART_PRODUCTS,
-            vtOrderStatuses: [
-                {
-                    "userId": "string"
-                }
-            ]
-        })
+        console.log()
     },
 
     REMOVE_FROM_CART({ commit }, productId) {

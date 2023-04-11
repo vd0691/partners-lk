@@ -6,6 +6,7 @@ import dataSort from './modules/dataSort'
 import partner from './modules/partner'
 import cart from './modules/cart'
 import contractors from './modules/contractors'
+import user from './modules/user'
 import { RootState } from '@/interfaces/StoreInterface'
 
 export default createStore<RootState>({
@@ -16,6 +17,7 @@ export default createStore<RootState>({
     dataSort,
     partner,
     cart, 
-    contractors 
+    contractors,
+    user 
   }
 })
