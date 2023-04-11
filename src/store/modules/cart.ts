@@ -1,8 +1,9 @@
 import { CartState, RootState } from "@/interfaces/StoreInterface"
+import useOrdersService from "@/services/OrdersService"
 import { ActionTree, GetterTree, MutationTree } from "vuex"
 
 const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-
+const ordersService = useOrdersService()
 const state = (): CartState => ({
     cartProducts: cart
 })
@@ -53,8 +54,17 @@ const actions: ActionTree<CartState, RootState> = {
         commit('CHANGE_AMOUNT', { id, amount })
     },
 
-    CHECKOUT_ORDER({ state, getters, rootState }) {
-        console.log()
+    async CHECKOUT_ORDER({ state, getters, rootState }) {
+        const checkOrder = await ordersService.postOrder({
+            sumWithoutDiscount: getters.GET_CART_TOTAL.totalWithoutDiscount,
+            sumOfDiscount: getters.GET_CART_TOTAL.discount,
+            sumWithDiscount: getters.GET_CART_TOTAL.totalWithDiscount,
+            contractorId: rootState.contractors.contractor.id,
+            partnerId: rootState.partner.partner.id,
+            products: getters.CART_PRODUCTS,
+            userId: rootState.user.userId.id
+        })
+        console.log(checkOrder)             
     },
 
     REMOVE_FROM_CART({ commit }, productId) {

@@ -6,7 +6,12 @@ import { PartnerState, RootState } from "@/interfaces/StoreInterface";
 const partnerService = usePartnerService()
 
 const state = ():PartnerState => ({
-    partner: {} 
+    partner: {
+        id: '',
+        name: '',
+        account: '',
+        discount: 0
+    } 
 })
 
 const actions:ActionTree<PartnerState, RootState> = {
