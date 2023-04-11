@@ -1,4 +1,3 @@
-import { Contractor } from "@/interfaces/Contractor";
 import { ContractorsState, RootState } from "@/interfaces/StoreInterface";
 import useContractorsService from "@/services/ContractorsService";
 import { ActionTree, MutationTree } from "vuex";

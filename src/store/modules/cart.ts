@@ -54,7 +54,7 @@ const actions: ActionTree<CartState, RootState> = {
         commit('CHANGE_AMOUNT', { id, amount })
     },
 
-    async CHECKOUT_ORDER({ state, getters, rootState }) {
+    async CHECKOUT_ORDER({ getters, rootState }) {
         const checkOrder = await ordersService.postOrder({
             sumWithoutDiscount: getters.GET_CART_TOTAL.totalWithoutDiscount,
             sumOfDiscount: getters.GET_CART_TOTAL.discount,
