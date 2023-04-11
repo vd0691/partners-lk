@@ -24,7 +24,7 @@ export interface AuthState {
 
 export interface ContractorsState {
     contractors: Contractor[],
-    contractor: Contractor | null
+    contractor: Contractor
 }
 
 export interface PartnerState {

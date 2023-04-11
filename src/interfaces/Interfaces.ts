@@ -50,8 +50,18 @@ export interface Contractor {
 }
 
 export interface Partner {
-    id?: string,
-    name?: string,
-    discount?: number,
-    account?: string
+    id: string,
+    name: string,
+    discount: number,
+    account: string
+}
+
+export interface OrderParams {
+    sumWithoutDiscount: number,
+    sumOfDiscount: number,
+    sumWithDiscount: number,
+    contractorId: string,
+    partnerId: string,
+    products: Product[],
+    userId: string
 }
