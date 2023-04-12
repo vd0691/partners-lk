@@ -13,14 +13,14 @@ export default function useOrdersService() {
                 sumWithDiscount: sumWithDiscount,
                 contractorId: contractorId,
                 partnerId: partnerId,
-                products,
+                orderVts: products,
                 vtOrderStatuses: [
                     {
                         userId: userId
                     }
                 ]
             })
-            return order.data
+            return order
 
         } catch (error) {
             console.log(error)
