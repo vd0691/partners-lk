@@ -5,7 +5,8 @@ import { ActionTree, GetterTree, MutationTree } from "vuex"
 const cart = JSON.parse(localStorage.getItem('cart') || '[]')
 const ordersService = useOrdersService()
 const state = (): CartState => ({
-    cartProducts: cart
+    cartProducts: cart,
+    checkoutStatus: null
 })
 
 // getters
@@ -14,7 +15,7 @@ const getters: GetterTree<CartState, RootState> = {
         return state.cartProducts.map((item, index) => {
             return {
                 n_row: index + 1,
-                id: item.id,
+                itemI: item.id,
                 amount: Number(item.amount),
                 sale: item.retailPriceBeforeDiscount,
                 discount: item.discount,
@@ -54,7 +55,8 @@ const actions: ActionTree<CartState, RootState> = {
         commit('CHANGE_AMOUNT', { id, amount })
     },
 
-    async CHECKOUT_ORDER({ getters, rootState }) {
+    async CHECKOUT_ORDER({ commit, getters, rootState }) {
+        commit('CHANGE_CHECKOUT_STATUS')
         const checkOrder = await ordersService.postOrder({
             sumWithoutDiscount: getters.GET_CART_TOTAL.totalWithoutDiscount,
             sumOfDiscount: getters.GET_CART_TOTAL.discount,
@@ -64,7 +66,12 @@ const actions: ActionTree<CartState, RootState> = {
             products: getters.CART_PRODUCTS,
             userId: rootState.user.userId.id
         })
-        console.log(checkOrder)             
+        if (checkOrder?.status === 200) {
+            commit('CHANGE_CHECKOUT_STATUS', 'Ваш заказ отправлен в работу')
+            commit('CLEAR_CART')
+        }else {
+            commit('CHANGE_CHECKOUT_STATUS', 'Что то пошло не так, поробуйте отправить заказ еще раз!')
+        }            
     },
 
     REMOVE_FROM_CART({ commit }, productId) {
@@ -109,6 +116,9 @@ const mutations: MutationTree<CartState> = {
     CLEAR_CART(state) {
         localStorage.removeItem('cart')
         state.cartProducts = []
+    },
+    CHANGE_CHECKOUT_STATUS(state, status) {
+        state.checkoutStatus = status
     }
 }
 

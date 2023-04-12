@@ -3,6 +3,9 @@
         <h1 class="cart__title">{{ !cartIsEmpty ? 'Корзина' : 'Ваша корзина пуста' }}</h1>
         <div class="cart__wrapper" v-if="!cartIsEmpty">
             <div class="cart__content">
+                <div class="cart__checkout-status" v-if="checkoutStatus">
+                    {{ checkoutStatus }}        
+                </div>
                 <CartProductsTable />
             </div>
             <div class="cart__sidebar">
@@ -34,6 +37,7 @@ const route = useRoute()
 const store = useStore()
 const cartTotal = computed(() => store.getters.GET_CART_TOTAL)
 const cartIsEmpty = computed(() => cartTotal.value.totalAmount < 1)
+const checkoutStatus = computed(() => store.state.cart.checkoutStatus)
 const partnerId = computed(() => store.state.partner.partner?.id)
 const totalItems = computed(() => store.state.products.totalItems)
 const currentPage =  computed(() => route.query.from)
@@ -89,6 +93,16 @@ watch([currentPage], () => {
 
     &__controls-button {
         margin: 5px 10px;
+    }
+
+    &__checkout-status {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: center;
+        margin-bottom: 16px;
     }
 }
 
