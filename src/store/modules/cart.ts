@@ -39,7 +39,7 @@ const getters: GetterTree<CartState, RootState> = {
 // actions
 const actions: ActionTree<CartState, RootState> = {
     ADD_TO_CART({ commit }, { product, amount }) {
-
+        commit('CHANGE_CHECKOUT_STATUS', null)
         commit('ADD_TO_CART', {
             id: product.id,
             name: product.name,
@@ -56,7 +56,7 @@ const actions: ActionTree<CartState, RootState> = {
     },
 
     async CHECKOUT_ORDER({ commit, getters, rootState }) {
-        commit('CHANGE_CHECKOUT_STATUS')
+        commit('CHANGE_CHECKOUT_STATUS', null)
         const checkOrder = await ordersService.postOrder({
             sumWithoutDiscount: getters.GET_CART_TOTAL.totalWithoutDiscount,
             sumOfDiscount: getters.GET_CART_TOTAL.discount,

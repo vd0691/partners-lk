@@ -1,11 +1,11 @@
 <template>
     <div class="cart">
         <h1 class="cart__title">{{ !cartIsEmpty ? 'Корзина' : 'Ваша корзина пуста' }}</h1>
+        <div class="cart__checkout-status" v-if="checkoutStatus">
+            {{ checkoutStatus }}        
+        </div>
         <div class="cart__wrapper" v-if="!cartIsEmpty">
             <div class="cart__content">
-                <div class="cart__checkout-status" v-if="checkoutStatus">
-                    {{ checkoutStatus }}        
-                </div>
                 <CartProductsTable />
             </div>
             <div class="cart__sidebar">
