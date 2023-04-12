@@ -12,7 +12,8 @@ export interface RootState {
 }
 
 export interface CartState {
-    cartProducts: CartProduct[] 
+    cartProducts: CartProduct[],
+    checkoutStatus:  null 
 }
 
 export interface AuthState {
