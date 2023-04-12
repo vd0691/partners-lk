@@ -110,6 +110,6 @@ watch([currentPage], () => {
     border: 1px solid #ccc;
     border-radius: 4px;
     position: sticky;
-    top: 10px;
+    top: 60px;
 }
 </style>
