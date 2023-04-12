@@ -15,7 +15,7 @@ const getters: GetterTree<CartState, RootState> = {
         return state.cartProducts.map((item, index) => {
             return {
                 n_row: index + 1,
-                itemI: item.id,
+                itemId: item.id,
                 amount: Number(item.amount),
                 sale: item.retailPriceBeforeDiscount,
                 discount: item.discount,
