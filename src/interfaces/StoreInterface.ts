@@ -1,4 +1,4 @@
-import { CartProduct, Contractor, Partner, Product, ProductCategories, User } from "./Interfaces";
+import { CartProduct, Contractor, Order, Partner, Product, ProductCategories, User } from "./Interfaces";
 import { UserId } from "./UserId";
 export interface RootState {
     auth: AuthState
@@ -49,4 +49,9 @@ export interface ErrorsState {
 
 export interface UserState {
     userId: UserId
+}
+
+export interface OrdersState {
+    ordersList: Order[]
+    totalItems: number
 }

@@ -65,3 +65,35 @@ export interface OrderParams {
     products: Product[],
     userId: string
 }
+
+export interface OrderProduct {
+    id: number, 
+    n_row: number, 
+    itemId: string, 
+    amount: number, 
+    sale: number, 
+    discount: number, 
+    price: number, 
+    total: number
+}
+
+export interface OrderStatuses {
+    id: number, 
+    orderId: string, 
+    orderStatus: string, 
+    updated: string,
+    userId: string
+}
+
+export interface Order {
+    id: string, 
+    num: number, 
+    orderDate: string, 
+    sumWithoutDiscount: number, 
+    sumOfDiscount: number, 
+    umWithDiscount: number, 
+    contractorId: string, 
+    partnerId: string, 
+    orderVts: OrderProduct[], 
+    vtOrderStatuses: OrderStatuses[]
+}
