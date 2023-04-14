@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { Product } from '@/interfaces/Product';
+import { Product } from '@/interfaces/Interfaces';
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import ModalWindow from './ModalWindow.vue';
