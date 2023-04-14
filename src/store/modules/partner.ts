@@ -4,14 +4,9 @@ import store from "..";
 import { PartnerState, RootState } from "@/interfaces/StoreInterface";
 
 const partnerService = usePartnerService()
-
+const currentPartner = JSON.parse(localStorage.getItem('partner') || '{}')
 const state = ():PartnerState => ({
-    partner: {
-        id: '',
-        name: '',
-        account: '',
-        discount: 0
-    } 
+    partner: currentPartner
 })
 
 const actions:ActionTree<PartnerState, RootState> = {
@@ -25,6 +20,7 @@ const mutations:MutationTree<PartnerState> = {
     PARTNER_ID(state, payload) {
         state.partner = payload
         store.dispatch('GET_CONTRACTORS', payload.id)
+        localStorage.setItem('partner', JSON.stringify(payload))
     }        
 }
 
