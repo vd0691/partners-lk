@@ -27,11 +27,13 @@ export default function useOrdersService() {
         }
     }
 
-    const getOrders = async (partnerId:string) => {
+    const getOrders = async (partnerId:string, from:number, size:number) => {
         try {
             const orders = await axios.get(`${API_URL}/orders/partner`, {
                 params: {
-                    partnerId: partnerId
+                    partnerId: partnerId,
+                    from: from || 0,
+                    size: size || 20
                 }
             })
             return orders.data
