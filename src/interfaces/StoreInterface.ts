@@ -8,7 +8,8 @@ export interface RootState {
     partner: PartnerState
     cart: CartState 
     contractors: ContractorsState,
-    user: UserState 
+    user: UserState,
+    orders: OrdersState 
 }
 
 export interface CartState {
