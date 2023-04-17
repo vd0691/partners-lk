@@ -112,6 +112,12 @@ button {
 
 }
 
+.pagination {
+    display: flex;
+    margin: 20px 0;
+    justify-content: center;
+}
+
 select {
     width: 100%;
 }
