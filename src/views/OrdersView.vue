@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import ProductsCart from '@/components/ProductsCart.vue';
 import OrdersList from '@/components/OrdersList.vue';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import PagePagination from '@/components/PagePagination.vue';
 import { useRoute } from 'vue-router';
