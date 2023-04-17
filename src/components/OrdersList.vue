@@ -11,7 +11,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="order in orders" :key="order.id">
-                        <router-link :to="`/order/${order.id}`" class="orders-table__link">
+                        <router-link :to="{ name: 'order', query: {orderId: order.id}}" class="orders-table__link">
                             <td><span>Номер</span>{{ order.num }}</td>
                             <td><span>Дата заказа</span>{{ formatDate(order.orderDate) }}</td>
                             <td><span>Сумма без скидки</span>{{ order.sumWithoutDiscount }} руб.</td>
