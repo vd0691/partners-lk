@@ -43,6 +43,19 @@ export default function useOrdersService() {
         }
     }
 
+    const getOrder = async (orderId: string) => {
+        try {
+            const orderDetails = await axios.get(`${API_URL}/orders`, {
+                params: {
+                    orderId
+                }
+            })
+            return orderDetails.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-    return { postOrder, getOrders }
+
+    return { postOrder, getOrders, getOrder }
 }
