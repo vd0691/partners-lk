@@ -12,11 +12,12 @@ const state = (): OrdersState => ({
         orderDate: '',
         sumWithoutDiscount: 0,
         sumOfDiscount: 0,
-        umWithDiscount: 0,
+        sumWithDiscount: 0,
         contractorId: '',
         partnerId: '',
         orderVts: [],
-        vtOrderStatuses: []
+        vtOrderStatuses: [],
+        status: ''
     },
     totalItems: 0
 })

@@ -91,9 +91,10 @@ export interface Order {
     orderDate: string, 
     sumWithoutDiscount: number, 
     sumOfDiscount: number, 
-    umWithDiscount: number, 
+    sumWithDiscount: number, 
     contractorId: string, 
     partnerId: string, 
     orderVts: OrderProduct[], 
-    vtOrderStatuses: OrderStatuses[]
+    vtOrderStatuses: OrderStatuses[],
+    status: string
 }
