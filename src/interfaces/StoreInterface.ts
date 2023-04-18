@@ -53,6 +53,7 @@ export interface UserState {
 }
 
 export interface OrdersState {
-    ordersList: Order[]
+    ordersList: Order[],
+    order: Order,
     totalItems: number
 }
