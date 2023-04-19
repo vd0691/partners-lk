@@ -31,6 +31,10 @@ const actions: ActionTree<OrdersState, RootState> = {
     async FETCH_ORDER({ commit }, orderId) {
         const order = await ordersService.getOrder(orderId)
         commit('FETCH_ORDER', order)
+    },
+    REMOVE_FROM_ORDER({commit}, itemId) {
+        commit('REMOVE_ITEM', itemId)
+        console.log(itemId)
     }
 }
 
@@ -40,6 +44,14 @@ const mutations: MutationTree<OrdersState> = {
     },
     FETCH_ORDER(state, order) {
         state.order = order
+    },
+    REMOVE_ITEM(state, itemId) {
+        const orderItem = state.order.orderVts.find((item) => item.itemId === itemId)
+        if (orderItem) {
+            state.order.orderVts.splice(state.order.orderVts.indexOf(orderItem), 1);
+            console.log(state.order.orderVts)
+        }
+     
     }
 }
 
