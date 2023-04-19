@@ -68,7 +68,8 @@ export interface OrderParams {
 
 export interface OrderProduct {
     id: number, 
-    n_row: number, 
+    nrow: number,
+    name: string, 
     itemId: string, 
     amount: number, 
     sale: number, 
