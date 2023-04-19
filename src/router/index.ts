@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/order/',
     name: 'order',
-    component: () => import('../components/UserOrder.vue'),
+    component: () => import('../components/OrderCard.vue'),
   },
 
   {
