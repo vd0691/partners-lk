@@ -44,7 +44,6 @@ const currentPage =  computed(() => route.query.from)
 const isWindowOpen = ref(false)
 const addProducts = () => {
     store.dispatch('FETCH_PRODUCTS', {
-        partnerId: partnerId.value
     })
     isWindowOpen.value = true
 }
@@ -58,7 +57,6 @@ const clearCart = () => {
 watch([currentPage], () => {
   if (partnerId.value) {
       store.dispatch('FETCH_PRODUCTS', {
-      partnerId: partnerId.value,
       from: currentPage.value,  
     })
   }

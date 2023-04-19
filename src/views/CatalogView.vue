@@ -43,7 +43,6 @@ const partnerId = computed(() => store.state.partner.partner?.id)
 watch([currentCategory, currentSubcategory, currentPage, itemsNumber, partnerId], () => {
   if (partnerId.value) {
       store.dispatch('FETCH_PRODUCTS', {
-      partnerId: partnerId.value,
       level: currentCategory.value && !currentSubcategory.value ? 1 : undefined,
       id: currentCategory.value && !currentSubcategory.value ? currentCategory.value : currentSubcategory.value ? currentSubcategory.value : undefined, 
       from: currentPage.value, 
