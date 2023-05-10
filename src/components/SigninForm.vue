@@ -28,7 +28,7 @@ const loginData = reactive({
     login: '',
     password: ''
 })
-const isButtonDisabled = useButtonState(loginData, formErrors)
+const { isButtonDisabled } = useButtonState(loginData, formErrors)
 const login = () => {
     store.dispatch('LOGIN', loginData)
 }
