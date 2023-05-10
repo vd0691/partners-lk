@@ -11,6 +11,6 @@ import { useStore } from 'vuex';
 
 const store = useStore()
 const logout = () => {
-    store.dispatch('logout')
+    store.dispatch('LOGOUT')
 }
 </script>
