@@ -53,6 +53,11 @@ h1 {
     height: 13px;
 }
 
+.error {
+    color: #ff0000;
+    font-size: 12px;
+}
+
 .submit-button {
     border: none;
     height: 45px;
@@ -61,9 +66,6 @@ h1 {
     text-transform: uppercase;
 }
 
-.error {
-    border: 1px solid #ff0000;
-}
 
 .alert-field {
     padding-top: 25px;
@@ -120,4 +122,24 @@ button {
 
 select {
     width: 100%;
+}
+
+.button {
+    font-weight: 600;
+    letter-spacing: 0;
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    background: #202020;
+    border: none;
+
+    &:disabled {
+        background: #e5e5e5;
+    }
+
 }
