@@ -19,7 +19,7 @@ export const useInterceptors = () => {
         return config;
       }, function (error) {
         if (error.response.status === 401) {
-            store.dispatch('logout')
+            store.dispatch('LOGOUT')
             router.push('/login')
         }
         return Promise.reject(error);
