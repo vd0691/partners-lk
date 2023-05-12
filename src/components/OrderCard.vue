@@ -1,5 +1,5 @@
 <template>
-    <div class="order-card">
+    <div class="order-card container">
         <div class="order-card__wrapper">
             <div class="order-card__header">
                 <div class="order-card__header-content">

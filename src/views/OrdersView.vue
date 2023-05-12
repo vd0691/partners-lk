@@ -1,5 +1,5 @@
 <template>
-    <div class="orders">
+    <div class="orders-page container">
         <div class="orders-wrapper">
             <ProductsCart />   
             <div class="orders-header">

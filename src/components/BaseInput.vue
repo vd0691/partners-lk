@@ -1,15 +1,16 @@
 <template>
-    <div class="form-field">
-        <label :for="props.id" class="form-field__label">{{ props.title }}</label>
+    <div class="field">
+        <label :for="props.id" class="form-field__label" v-if="props.title">{{ props.title }}</label>
         <input :id="props.id" 
-               class="form-field__input"
+               class="field__input"
                :class="{error:formErrors[props.id]}" 
                :type="props.type"
+               :placeholder="props.placeholder"
                @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
                @keyup="$emit('keyup')"
                @blur="$emit('blur')"
         />
-        <span class="form-field__error" v-if="formErrors[props.id]">{{ formErrors[props.id] }}</span>  <!--imported from utils-->
+        <span class="form-field__error" v-if="formErrors[props.id]">{{ formErrors[props.id] }}</span>
     </div>
 </template>
 
@@ -22,23 +23,28 @@ const props = defineProps({
     },
     title: {
         type: String,
-        required: true
+        default: ''    
     },
     type: {
         type: String,
         default: 'text'
+    },
+    placeholder: {
+        type: String,
+        default: ''
     }
 })
 </script>
 
 <style scoped lang="scss">
-.form-field {
+.field {
     margin: 5px 0 16px;
 
     &__input {
         width: 100%;
-        height: 50px;
+        height: 30px;
         padding: 6px;
+        text-align: center;
     }
 
     &__error {

@@ -38,7 +38,7 @@ const loginValidate = () => {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .login-form {
 
     &__button {
@@ -47,6 +47,10 @@ const loginValidate = () => {
         padding: 16px 24px;
         width: 100%;
         margin-top: 20px;
+    }
+
+    & .field input  {
+        height: 50px;
     }
 }
 </style>

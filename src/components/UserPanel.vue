@@ -1,13 +1,12 @@
 <template>
     <div class="user-panel">
-        <button class="user-panel__logout" @click="logout">
-            Выйти
-        </button>
+        <BaseButton text="Выйти" @click="logout" class="user-panel__button"/>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useStore } from 'vuex';
+import BaseButton from './BaseButton.vue';
 
 const store = useStore()
 const logout = () => {

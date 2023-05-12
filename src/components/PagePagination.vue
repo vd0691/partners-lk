@@ -49,6 +49,7 @@ const nextPage = () => {
 
 <style scoped lang="scss">
 .page-pagination {
+    margin: 20px 0;
     
     &__wrapper {
         display: flex;
@@ -57,15 +58,16 @@ const nextPage = () => {
 
     &__item-next,
     &__item-previous {
-        font-size: 16px;
+        font-size: 14px;
+        color: #fff;
         text-transform: uppercase;
         padding: 10px;
         margin: 0 20px;
-        background: #d1eadf;
+        background: #626262;
         border-radius: 3px;
 
         :disabled {
-            background: #d1eadf;
+            background: #727272;
         }
     }
 }

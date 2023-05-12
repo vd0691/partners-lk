@@ -1,30 +1,32 @@
 <template>
-    <nav class="nav">
-        <ul class="nav__list">
-            <li class="nav__item">
-                <router-link class="nav__link" to="/">Главная</router-link>
-            </li>
-            <li class="nav__item">
-                <router-link class="nav__link" to="/orders">Заказы</router-link>
-            </li>
-            <li class="nav__item">
-                <router-link class="nav__link" to="/documents">Документы</router-link>
+    <nav class="navigation">
+        <ul class="navigation__list">
+            <li class="navigation__item" v-for="link in navigationLinks" :key="link.name">
+                <RouterLink class="navigation__link navigation-main-link" :to="link.path">
+                    {{ link.name }}
+                </RouterLink>
             </li>
         </ul>
     </nav>
 </template>
 
+<script setup lang="ts">
+
+const navigationLinks = [{ name: 'Каталог', path: '/' }, { name: 'Заказы', path: '/orders' }, { name: 'Документы', path: '/documents' }]
+
+</script>
+
 <style scoped lang="scss">
-.nav {
+.navigation {
 
     &__list {
-        @include flex-center;
-        list-style: none;
+        display: flex;
+        justify-content: center;
     }
 
-    &__item {
-        margin: 0 10px;
-        text-transform: uppercase;
+    & .router-link-active {
+        opacity: 0.5;
     }
+
 }
 </style>

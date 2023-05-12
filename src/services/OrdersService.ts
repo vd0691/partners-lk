@@ -14,11 +14,7 @@ export default function useOrdersService() {
                 contractorId: contractorId,
                 partnerId: partnerId,
                 orderVts: products,
-                vtOrderStatuses: [
-                    {
-                        userId: userId
-                    }
-                ]
+                userId: userId
             })
             return order
 
