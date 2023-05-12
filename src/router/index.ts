@@ -29,6 +29,12 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/order/',
+    name: 'order',
+    component: () => import('../components/OrderCard.vue'),
+  },
+
+  {
     path: '/documents',
     name: 'documents',
     component: () => import('../views/DocumentsView.vue'),
@@ -42,11 +48,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/CatalogView.vue'),
     children: [
       {
-          path: ':subcategory',
-          name: 'userData',
-          component: () => import('../views/CatalogView.vue'),
+        path: ':subcategory',
+        name: 'userData',
+        component: () => import('../views/CatalogView.vue'),
       },
-  ],
+    ],
     meta: {
       layout: DefaultLayout
     }
@@ -62,12 +68,12 @@ router.beforeEach((to) => {
   const isLoggedIn = localStorage.getItem('user') || ''
   const isCurrentPath = to.name === 'login'
 
-  if(!isLoggedIn && !isCurrentPath) {
-    return {name: 'login'}
+  if (!isLoggedIn && !isCurrentPath) {
+    return { name: 'login' }
   }
-  if(isLoggedIn && isCurrentPath) {
+  if (isLoggedIn && isCurrentPath) {
     router.push('/')
   }
-  
+
 })
 export default router

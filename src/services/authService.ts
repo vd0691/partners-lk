@@ -18,7 +18,7 @@ export default function useAuthService() {
         } catch (errors) {
             const error = errors as AxiosError
             if (error.response?.status === 401) {
-                store.dispatch('error/getErrorMessage', 'Вы ввели неверный логин или пароль')
+                store.dispatch('PUSH_ERROR_MESSAGE', 'Вы ввели неверный логин или пароль')
             }
         }                       
     }

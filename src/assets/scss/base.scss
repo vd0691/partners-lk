@@ -1,117 +1,169 @@
-* {
-    box-sizing: border-box;
+:root {
+    --main-FontSize: 22px;
+    --main-LinkColor: #fff;
 }
 
-html {
-    font-size: 15px;
+* {
+    box-sizing: border-box;
 }
 
 body {
     margin: 0;
 }
 
+.button {
+    font-weight: 600;
+    letter-spacing: 0;
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    background: #202020;
+    border: none;
+
+    &:disabled {
+        background: #e5e5e5;
+    }
+}
+.container {
+    max-width: 1480px;
+    margin: 0 auto;
+
+    @media screen and (min-width: 320px) and (max-width: 1480px) {
+        padding: 0 30px;
+    }
+}
+
+.header__container {
+    max-width: 1480px;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1200px) {}
+
+    @media screen and (max-width: 992px) {}
+
+    @media screen and (max-width: 768px) {}
+
+    @media screen and (max-width: 480px) {}
+
+    @media screen and (min-width: 320px) and (max-width: 1480px) {
+        padding: 0 30px;
+    }
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 a {
     text-decoration: none;
 }
 
-h1 {
+.navigation-main-link {
+    font-size: var(--main-FontSize);
+    color: var(--main-LinkColor);
+    margin: 0 15px;
+}
+
+// Default table 
+table {
+    border-radius: 5px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+
+    &__link {
+        display: contents;
+        width: 100%;
+    }
+}
+
+table th,
+table td {
+    padding: 10px 10px;
+    border: none;
+    border: 1px solid #626262;
+    vertical-align: middle;
+    text-align: center;
+
+    @media screen and (max-width: 1200px) {
+        font-size: 13px;
+        padding: 6px;
+    }
+}
+
+table th {
+    color: #FFF;
+    background: #404040;
+    font-weight: bold;
+    border: 1px solid #626262;
+    text-transform: uppercase;
     text-align: center;
 }
 
-.container {
-    max-width: 1480px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 10px;
-}
-
-.form-fields {
-    margin: 4px 0 16px;
-    font-size: 14px;
-    text-align: left;
-    text-transform: uppercase;
-}
-
-.input-field {
-    height: 50px;
-    width: 100%;
-    border: 1px solid #adadad;
-    border-radius: 3px;
-}
-
-.label-field {
-
-    &:hover {
-        cursor: pointer;
-    }
-}
-
-.error-field {
-    font-size: 12px;
-    color: #800000;
-    text-transform: none;
-    height: 13px;
-}
-
-.submit-button {
-    border: none;
-    height: 45px;
-    width: 70%;
-    border-radius: 30px;
-    text-transform: uppercase;
-}
-
-.error {
-    border: 1px solid #ff0000;
-}
-
-.alert-field {
-    padding-top: 25px;
-    color: #ff0000;
-}
-
-.disabled-button {
-
-    &:hover {
-        cursor: not-allowed;
-    }
-}
-
-button {
-
-    &:hover {
-        cursor: pointer;
-    }
-}
-
-.menu-link--main {
+.table .table-title {
+    background: #626262;
+    color: #FFF;
+    display: none;
+    font-size: 11px;
     font-weight: bold;
+    font-family: Verdana, sans-serif;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    @media screen and (max-width: 768px) {
+        display: block;
+    }
 }
 
-.products-table {
-    border: 1px solid #eee;
-    border-spacing: 0;
-    width: 100%;
-
-
-    &__header {
-        background: #D1EADF;
+.table-thead {
+    font-size: 14px;
+}
+@media(max-width: 768px) {
+    table thead {
+        display: none;
     }
 
-    &__titles-text {
-        border: 1px solid #eee;
-        padding: 7px;
-        font-size: 11px;
+    table tr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 2px dotted #7a7a7a;
+        padding: 20px 0;
     }
 
-    &__product-item {
-        height: 40px;
-        padding: 10px;
-        border: 1px solid #eee;
+    table td {
+        padding-top: 35px;
+        position: relative;
+        width: 90%;
     }
 
+    table td span {
+        display: block;
+        width: 100%;
+    }
 }
 
-select {
-    width: 100%;
+@media(max-width: 480px) {
+    table td {
+        width: 100%;
+    }
+}
+
+.order-controls {
+
+    & .field__input {
+        padding: 3px;
+    }
 }

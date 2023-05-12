@@ -7,6 +7,7 @@ import partner from './modules/partner'
 import cart from './modules/cart'
 import contractors from './modules/contractors'
 import user from './modules/user'
+import orders from './modules/orders'
 import { RootState } from '@/interfaces/StoreInterface'
 
 export default createStore<RootState>({
@@ -18,6 +19,7 @@ export default createStore<RootState>({
     partner,
     cart, 
     contractors,
-    user 
+    user,
+    orders 
   }
 })

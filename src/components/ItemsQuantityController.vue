@@ -36,3 +36,12 @@ const changeItemsNumber = (value:string) => {
 
 
 </script>
+
+<style scoped lang="scss">
+.quantity-selector {
+
+    &__label {
+        margin-right: 10px;
+    }
+}
+</style>

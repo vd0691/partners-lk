@@ -14,11 +14,7 @@ export default function useOrdersService() {
                 contractorId: contractorId,
                 partnerId: partnerId,
                 orderVts: products,
-                vtOrderStatuses: [
-                    {
-                        userId: userId
-                    }
-                ]
+                userId: userId
             })
             return order
 
@@ -27,6 +23,35 @@ export default function useOrdersService() {
         }
     }
 
+    const getOrders = async (partnerId:string, from:number, size:number) => {
+        try {
+            const orders = await axios.get(`${API_URL}/orders/partner`, {
+                params: {
+                    partnerId: partnerId,
+                    from: from || 0,
+                    size: size || 20
+                }
+            })
+            return orders.data
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-    return { postOrder }
+    const getOrder = async (orderId: string) => {
+        try {
+            const orderDetails = await axios.get(`${API_URL}/orders`, {
+                params: {
+                    orderId
+                }
+            })
+            return orderDetails.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    return { postOrder, getOrders, getOrder }
 }

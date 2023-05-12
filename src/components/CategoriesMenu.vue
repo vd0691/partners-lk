@@ -2,37 +2,22 @@
     <div class="catalog-menu">
         <ul class="catalog-menu__list">
             <li class="menu-category">
-                <router-link 
-                    class="menu-link menu-category__link menu-link--main"
-                    :to="'/'"
-                    @click="currentMenuItem = undefined"
-                >
+                <router-link class="menu-link menu-category__link menu-link--main" :to="'/'"
+                    @click="currentMenuItem = undefined">
                     Все товары
                 </router-link>
             </li>
-            <li class="menu-category" 
-                v-for="category in categories" 
-                :key="category.id"
-            >
-                <router-link 
-                    class="menu-link menu-category__link menu-link--main"          
-                    @click="selectItem(category.id)"
-                    :to="`/category/${category.id}`"
-                >
+            <li class="menu-category" v-for="category in categories" :key="category.id">
+                <router-link class="menu-link menu-category__link menu-link--main" @click="selectItem(category.id)"
+                    :to="`/category/${category.id}`">
                     {{ category.name }}
                 </router-link>
                 <ul class="menu-category__list" v-show="category.id === currentMenuItem">
-                    <li class="menu-subcategory" 
-                        v-for="subcat in subCategories(category.id)" 
-                        :key="subcat.id"
-                    >
-                        <router-link 
-                            :to="`/category/${category.id}/${subcat.id}`"
-                            class="menu-link menu-subcategory__link"                     
-                        >
+                    <li class="menu-subcategory" v-for="subcat in subCategories(category.id)" :key="subcat.id">
+                        <router-link :to="`/category/${category.id}/${subcat.id}`" class="menu-link menu-subcategory__link">
                             {{ subcat.name }}
-                        </router-link>  
-                    </li>                   
+                        </router-link>
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -52,10 +37,10 @@ const categories = computed(() => {
     return store.getters.GET_CATEGORIES
 })
 
-const subCategories = (id:string) => {
-    return store.getters.GET_SUBCATEGORIES.filter((item: {groupId: string}) => item.groupId === id)
+const subCategories = (id: string) => {
+    return store.getters.GET_SUBCATEGORIES.filter((item: { groupId: string }) => item.groupId === id)
 }
-const selectItem = (id:string) => {
+const selectItem = (id: string) => {
     currentMenuItem.value = id
 }
 
@@ -66,28 +51,45 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-
 .catalog-menu {
-  
+    @media screen and (max-width: 1200px) {
+        font-size: 13px;
+    }
+
     &__list {
         list-style: none;
         text-align: left;
-        padding: 0 15px 0 0;
 
         @media screen and (max-width: 1024px) {
-            display: flex;   
+            display: flex;
             flex-wrap: wrap;
             padding: 0;
+        }
+
+        @media screen and (max-width: 992px) {
+            justify-content: space-between;
         }
     }
 
 }
+
 .menu-category {
     margin-top: 10px;
+
+
 
     @media screen and (max-width: 1024px) {
         width: 50%;
     }
+
+    @media screen and (max-width: 992px) {
+        width: calc((100% - 20px) / 3);
+    }
+
+    @media screen and (max-width: 768px) {
+        width: calc((100% - 20px) / 2);
+    }
+
 
     &__list {
         list-style: none;
@@ -101,20 +103,20 @@ onMounted(() => {
 
 }
 
+
 .menu-subcategory {
     margin-top: 10px;
 
     &__link {
         color: #767676;
-        padding: 5px 10px;
+        padding: 5px 0;
     }
 
     &__link.router-link-active {
         color: #000000;
         font-weight: bold;
-        padding: 5px 10px;
-        border-bottom: 3px solid #9dd9bf;
-    } 
+        padding: 1px 0;
+        border-bottom: 2px solid #4c4c4c;
+    }
 }
-
 </style>

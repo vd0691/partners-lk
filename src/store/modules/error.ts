@@ -6,11 +6,11 @@ const state = ():ErrorsState => ({
 })
 
 const actions:ActionTree<ErrorsState, RootState> = {
-    getErrorMessage({commit}, message) {
+    PUSH_ERROR_MESSAGE({commit}, message) {
         commit('errorMessage', message)
     },
 
-    clearErrorMessage({commit}) {
+    CLEAR_ERROR_MESSAGE({commit}) {
         commit('clearErrorMessage')
     }
     

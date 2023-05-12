@@ -43,6 +43,10 @@ const props = defineProps({
 <style scoped lang="scss">
 .image-more {
     margin-left: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .product-image {

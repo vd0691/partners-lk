@@ -14,8 +14,9 @@ const state = ():AuthState => ({
 })
 
 const actions:ActionTree<AuthState, RootState> = {
-    login({ commit }, user) {
-        authService.login(user.username, user.password)
+    LOGIN({ commit }, user) {
+        console.log(user)
+        authService.login(user.login, user.password)
         .then(
             user => {
                 commit('loginSucces', user)
@@ -25,7 +26,7 @@ const actions:ActionTree<AuthState, RootState> = {
         )       
     },
     
-    logout({commit}) {
+    LOGOUT({commit}) {
         authService.logout()
         commit('logout')
     }
