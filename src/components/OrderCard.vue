@@ -9,6 +9,7 @@
             <div class="order-card__list">
                 <div class="order-card__list-content">
                     <OrderCardTable  />
+                    <BaseButton text="Отправить" />
                 </div>
             </div>
         </div>
@@ -21,6 +22,7 @@ import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import OrderCardInfo from './OrderCardInfo.vue';
 import OrderCardTable from './OrderCardTable.vue';
+import BaseButton from './BaseButton.vue';
 
 const store = useStore()
 const route = useRoute()
