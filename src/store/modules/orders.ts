@@ -71,7 +71,7 @@ const mutations: MutationTree<OrdersState> = {
             state.order.orderVts.splice(state.order.orderVts.indexOf(orderItem), 1);
             state.order.sumWithDiscount = getters.GET_ORDER_TOTAL.totalWithDiscount 
             state.order.sumWithoutDiscount = getters.GET_ORDER_TOTAL.totalWithoutDiscount 
-            state.order.sumOfDiscount = getters.GET_ORDER_TOTAL.totalWithoutDiscount - getters.GET_ORDER_TOTAL.totalWithDiscount 
+            state.order.sumOfDiscount = getters.GET_ORDER_TOTAL.discount
         }
     },
 
@@ -82,7 +82,7 @@ const mutations: MutationTree<OrdersState> = {
     CHANGE_ITEM(state, {getters, product, amount=1,}) {
         state.order.orderVts.splice(state.replacementProductId, 1, {
             id: state.order.orderVts[state.replacementProductId].id,
-            row: product.row,
+            nrow: state.order.orderVts[state.replacementProductId].nrow,
             name: product.name,
             itemId: product.id,
             amount: amount,
@@ -93,7 +93,7 @@ const mutations: MutationTree<OrdersState> = {
         })
         state.order.sumWithDiscount = getters.GET_ORDER_TOTAL.totalWithDiscount 
         state.order.sumWithoutDiscount = getters.GET_ORDER_TOTAL.totalWithoutDiscount 
-        state.order.sumOfDiscount = getters.GET_ORDER_TOTAL.totalWithoutDiscount - getters.GET_ORDER_TOTAL.totalWithDiscount 
+        state.order.sumOfDiscount = getters.GET_ORDER_TOTAL.discount 
     }
 }
 
