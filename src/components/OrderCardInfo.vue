@@ -1,22 +1,22 @@
 <template>
     <div class="order-info">
         <div class="order-info__item">
-            Заказ: <span>№ {{ props.order.num }}</span>
+            Заказ: <span>№ {{ order.num }}</span>
         </div>
         <div class="order-info__item">
-            Дата: <span>{{ formatDate(props.order.orderDate).fullDate }}</span>
+            Дата: <span>{{ formatDate(order.orderDate).fullDate }}</span>
         </div>
         <div class="order-info__item">
-            Статус: <span>{{ props.order.status }}</span>
+            Статус: <span>{{ order.status }}</span>
         </div>
         <div class="order-info__item">
-            Сумма без скидки: <span>{{ props.order.sumWithoutDiscount }} руб.</span>
+            Сумма без скидки: <span>{{ order.sumWithoutDiscount }} руб.</span>
         </div>
         <div class="order-info__item">
-            Сумма скидки: <span>{{ props.order.sumOfDiscount }} руб.</span>
+            Сумма скидки: <span>{{ order.sumOfDiscount }} руб.</span>
         </div>
         <div class="order-info__item">
-            Сумма со скидкой: <span>{{ props.order.sumWithDiscount }} руб.</span>
+            Сумма со скидкой: <span>{{ order.sumWithDiscount }} руб.</span>
         </div>
     </div>
 </template>
@@ -24,10 +24,11 @@
 <script setup lang="ts">
 import { formatDate } from '@/helpers/FormatDate';
 import { Order } from '@/interfaces/Interfaces';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-const props = defineProps<{
-  order: Order
-}>()
+const store = useStore()
+const order = computed<Order>(() => store.state.orders.order)
 
 </script>
 

@@ -33,10 +33,9 @@
                     <div class="order-controls">
                         <BaseInput id="quant" class="order-controls__field" placeholder="кол-во"
                             v-model="productAmount[i]" />
-                        <button @click="addToOrder(product, i)" class="order-controls__button"
-                            :disabled="isInCart(product.id)">
-                            {{ isInCart(product.id) ? 'В корзине' : 'В корзину' }}
-                        </button>
+                        <BaseButton
+                            :text="props.mode === 'order' ? 'Добавить' : isInCart(product.id) ? 'В Корзине' : 'В корзину'"
+                            сlass="order-controls__button" @click="addToOrder(product, i)" />
                     </div>
                 </td>
             </tr>
@@ -55,8 +54,11 @@ import ProductImage from './ProductImage.vue';
 import BaseInput from './BaseInput.vue';
 import ModalWindow from './ModalWindow.vue';
 import ProductCard from './ProductCard.vue';
+import BaseButton from './BaseButton.vue';
 
-
+const props = defineProps({
+    mode: String,
+})
 const tableTitles = ['Код', 'Наименование', 'Цена опт., руб.', 'Скидка, %', 'Цена опт. со скидкой, руб.', 'Страна', 'Заказ']
 const store = useStore();
 const products = computed(() => store.state.products.productsList)
@@ -74,7 +76,9 @@ const closeCard = () => {
 
 const addToOrder = (product: Product, i: number) => {
     const amount = productAmount.value[i]
-    store.dispatch('ADD_TO_CART', { product: product, amount: amount })
+    props.mode === 'order' ?
+        store.dispatch('CHANGE_FROM_ORDER', { product, amount }) :
+        store.dispatch('ADD_TO_CART', { product: product, amount: amount })
 }
 
 const isInCart = (id: string) => {

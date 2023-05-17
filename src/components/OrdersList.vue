@@ -11,9 +11,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="order in orders" :key="order.id">
-                        <router-link :to="{ name: 'order', query: {orderId: order.id}}" class="orders-table__link">
+                        <router-link :to="{ path: 'order', query: {orderId: order.id}}" class="orders-table__link">
                             <td><span class="table-title">Номер</span>{{ order.num }}</td>
-                            <td><span class="table-title">Дата заказа</span>{{ formatDate(order.orderDate) }}</td>
+                            <td><span class="table-title">Дата заказа</span>{{ formatDate(order.orderDate).orderDate }}</td>
                             <td><span class="table-title">Сумма без скидки</span>{{ order.sumWithoutDiscount }} руб.</td>
                             <td><span class="table-title">Сумма со скидкой</span>{{ order.sumWithDiscount }} руб.</td>
                             <td><span class="table-title">Сумма скидки</span>{{ order.sumOfDiscount }} руб. </td>
@@ -27,7 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from '@vue/reactivity';
+import { formatDate } from '@/helpers/FormatDate';
+import { computed } from 'vue';
 
 import { useStore } from 'vuex';
 
@@ -35,13 +36,6 @@ const store = useStore()
 const orders = computed(() => store.state.orders.ordersList.result)
 const headerTitles = ['№', 'Дата', 'Сумма без скидки', 'Сумма со скидкой', 'Сумма скидки', 'Статус']
 
-const formatDate = (date: string) => {
-    const time = date.split('T')[1]
-    const orderDate = date.split('T')[0].replace(/^(\d+)-(\d+)-(\d+)$/, `$3.$2.$1`)
-    const orderTime = time.slice(0, -time.length + 5)
-    const currentDate = orderDate + ' ' + orderTime
-    return currentDate
-}
 </script>
 
 <style scoped lang="scss">

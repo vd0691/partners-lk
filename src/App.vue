@@ -25,6 +25,7 @@ onUpdated(() => {
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/base.scss";
 #app {
   font-family: 'Times New Roman', Times, serif;
   -webkit-font-smoothing: antialiased;

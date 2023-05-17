@@ -3,12 +3,13 @@
         <div class="order-card__wrapper">
             <div class="order-card__header">
                 <div class="order-card__header-content">
-                    <OrderCardInfo :order="order" />
+                    <OrderCardInfo />
                 </div>
             </div>
             <div class="order-card__list">
                 <div class="order-card__list-content">
-                    <OrderCardTable :order="order" />
+                    <OrderCardTable  />
+                    <BaseButton text="Отправить" />
                 </div>
             </div>
         </div>
@@ -16,19 +17,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
-import { Order } from '@/interfaces/Interfaces';
 import OrderCardInfo from './OrderCardInfo.vue';
 import OrderCardTable from './OrderCardTable.vue';
-
-
+import BaseButton from './BaseButton.vue';
 
 const store = useStore()
 const route = useRoute()
-const order = computed<Order>(() => store.state.orders.order)
+
 onMounted(() => {
     store.dispatch('FETCH_ORDER', route.query.orderId as string)
 })

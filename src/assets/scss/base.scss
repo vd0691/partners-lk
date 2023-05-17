@@ -167,3 +167,12 @@ table th {
         padding: 3px;
     }
 }
+
+.modal {
+
+    &__content {
+        height: 520px;
+        overflow-y: auto;        
+        
+    }
+}

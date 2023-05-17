@@ -38,11 +38,11 @@ const currentPage = computed(() => {
 const isNextDisabled = computed(() => props.totalItems <= currentPage.value + props.perPage)
 const isPreviousDisabled = computed(() => currentPage.value <= 0)
 const previousPage = () => {
-    router.push({query: {from: (currentPage.value - props.perPage) < 0 ? 0 : currentPage.value - props.perPage, size: props.perPage}})
+    router.push({query: {...route.query, from: (currentPage.value - props.perPage) < 0 ? 0 : currentPage.value - props.perPage, size: props.perPage}})
     scrollToTop(0, 0) 
 }
 const nextPage = () => {
-    router.push({query: {from: currentPage.value + props.perPage, size: props.perPage}})
+    router.push({query: {...route.query, from: currentPage.value + props.perPage, size: props.perPage}})
     scrollToTop(0, 0)
 }
 </script>
