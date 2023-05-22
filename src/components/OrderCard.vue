@@ -9,7 +9,9 @@
             <div class="order-card__list">
                 <div class="order-card__list-content">
                     <OrderCardTable  />
-                    <BaseButton text="Отправить" />
+                    <div class="order-card__controls">
+                        <BaseButton text="Отправить" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,6 +50,10 @@ onMounted(() => {
         border: 1px solid #eee;
         border-radius: 4px;
         padding: 10px;
+    }
+
+    &__controls {
+        margin: 20px 0;
     }
 }
 </style>

@@ -54,6 +54,9 @@ const actions: ActionTree<OrdersState, RootState> = {
     },
     CHANGE_FROM_ORDER({ commit, getters }, { product, amount }) {
         commit('CHANGE_ITEM', { getters, product, amount })
+    },
+    ADD_TO_ORDER({commit, getters}, {product, amount}) {
+        commit('ADD_ITEM', {getters, product, amount})
     }
 
 }
@@ -83,6 +86,22 @@ const mutations: MutationTree<OrdersState> = {
         state.order.orderVts.splice(state.replacementProductId, 1, {
             id: state.order.orderVts[state.replacementProductId].id,
             nrow: state.order.orderVts[state.replacementProductId].nrow,
+            name: product.name,
+            itemId: product.id,
+            amount: amount,
+            sale: product.retailPriceBeforeDiscount,
+            discount: product.discount,
+            price: product.retailPrice,
+            total: product.retailPrice * amount
+        })
+        state.order.sumWithDiscount = getters.GET_ORDER_TOTAL.totalWithDiscount 
+        state.order.sumWithoutDiscount = getters.GET_ORDER_TOTAL.totalWithoutDiscount 
+        state.order.sumOfDiscount = getters.GET_ORDER_TOTAL.discount 
+    },
+    ADD_ITEM(state, {getters, product, amount=1}) {
+        state.order.orderVts.push({
+            id: state.order.orderVts[state.order.orderVts.length - 1].id + 1,
+            nrow: state.order.orderVts[state.order.orderVts.length - 1].nrow + 1,
             name: product.name,
             itemId: product.id,
             amount: amount,

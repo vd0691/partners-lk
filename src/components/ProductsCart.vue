@@ -2,7 +2,7 @@
     <div class="cart">
         <h1 class="cart__title">{{ !cartIsEmpty ? 'Корзина' : 'Ваша корзина пуста' }}</h1>
         <div class="cart__checkout-status" v-if="checkoutStatus">
-            {{ checkoutStatus }}        
+            {{ checkoutStatus }}
         </div>
         <div class="cart__wrapper" v-if="!cartIsEmpty">
             <div class="cart__content">
@@ -13,13 +13,19 @@
             </div>
         </div>
         <div class="cart__controls">
-            <button class="cart__controls-button" @click="addProducts">Добавить товары</button>
-            <button class="cart__controls-button" @click="clearCart" v-if="!cartIsEmpty">Удалить все товары</button>
+            <BaseButton text="Добавить товары" class="cart__controls-button" @click="fetchProducts(), openWindow()" />
+            <BaseButton  text="Очистить корзину" class="cart__controls-button" @click="clearCart" v-if="!cartIsEmpty"/>
+            
         </div>
-        <ModalWindow v-if="isWindowOpen" @close-window="closeWindow" >
-            <ProductsList class="cart__products-box" />
+        <ModalWindow v-if="isWindowOpen" @close-window="closeWindow">
+            <ProductsList 
+                @product-event="(product, amount) => addToCart(product, amount)"
+             />
             <div class="cart__modal-more">
-                <BaseButton class="cart__more-button" @click="loadMore" text="Загрузить еще"/>
+                <BaseButton class="cart__more-button" 
+                    @click="loadMore" 
+                    text="Загрузить еще" 
+                />
             </div>
         </ModalWindow>
     </div>
@@ -32,18 +38,26 @@ import CartOrder from './CartOrder.vue';
 import CartProductsTable from './CartProductsTable.vue'
 import ModalWindow from './ModalWindow.vue';
 import ProductsList from './ProductsList.vue';
+import { Product } from '@/interfaces/Interfaces';
 import BaseButton from './BaseButton.vue';
-
 
 const size = ref(20)
 const store = useStore()
 const cartTotal = computed(() => store.getters.GET_CART_TOTAL)
 const cartIsEmpty = computed(() => cartTotal.value.totalAmount < 1)
 const checkoutStatus = computed(() => store.state.cart.checkoutStatus)
+
 const isWindowOpen = ref(false)
-const addProducts = () => {
-    store.dispatch('FETCH_PRODUCTS', {
-    })
+
+const fetchProducts = () => {
+    store.dispatch('FETCH_PRODUCTS', {})
+}
+
+const addToCart = (product: Product, amount: number) => {
+    store.dispatch('ADD_TO_CART', { product, amount })
+}
+
+const openWindow = () => {
     isWindowOpen.value = true
 }
 const closeWindow = () => {
@@ -58,12 +72,10 @@ const loadMore = () => {
     size.value = size.value + 20
 }
 
-watch([ size ], () => {
-  
+watch([size], () => {
     store.dispatch('FETCH_PRODUCTS', {
         size: size.value
     })
-
 })
 
 </script>
@@ -75,7 +87,7 @@ watch([ size ], () => {
         display: flex;
 
         @media screen and (max-width: 1024px) {
-            flex-direction: column;            
+            flex-direction: column;
         }
     }
 
@@ -84,7 +96,7 @@ watch([ size ], () => {
         margin-right: 30px;
 
         @media screen and (max-width: 1024px) {
-            width: 100%;            
+            width: 100%;
         }
     }
 
