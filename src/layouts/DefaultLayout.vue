@@ -3,7 +3,9 @@
         <div class="page__wrapper">
             <TheHeader>
                 <div class="header__content">
-                    <TheNavigation class="header__navigation"/>
+                    <TheNavigation class="header__navigation" v-slot="slotProps">
+                        <CartCounter v-if="slotProps.data.tag === 'cart'" />
+                    </TheNavigation>
                     <UserPanel class="header__user-panel"/>
                 </div>
             </TheHeader>
@@ -15,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import CartCounter from '@/components/CartCounter.vue';
 import TheHeader from '@/components/TheHeader.vue';
 import TheNavigation from '@/components/TheNavigation.vue';
 import UserPanel from '@/components/UserPanel.vue';

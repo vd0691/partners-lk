@@ -4,6 +4,7 @@
             <li class="navigation__item" v-for="link in navigationLinks" :key="link.name">
                 <RouterLink class="navigation__link navigation-main-link" :to="link.path">
                     {{ link.name }}
+                    <slot :data="link"/>
                 </RouterLink>
             </li>
         </ul>
@@ -12,7 +13,7 @@
 
 <script setup lang="ts">
 
-const navigationLinks = [{ name: 'Каталог', path: '/' }, { name: 'Заказы', path: '/orders' }, { name: 'Документы', path: '/documents' }]
+const navigationLinks = [{ name: 'Каталог', path: '/' }, { name: 'Заказы / Корзина', path: '/orders', tag: 'cart' }, { name: 'Документы', path: '/documents' }]
 
 </script>
 
@@ -25,7 +26,7 @@ const navigationLinks = [{ name: 'Каталог', path: '/' }, { name: 'Зак�
     }
 
     & .router-link-active {
-        opacity: 0.5;
+        color: #ccc;
     }
 
 }
